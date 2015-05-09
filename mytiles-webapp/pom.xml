@@ -10,15 +10,58 @@
 		<version>0.1.0-SNAPSHOT</version>
 	</parent>
 
+    <packaging>war</packaging>
 	<artifactId>mytiles-webapp</artifactId>
-	<name>MyTiles Webapp</name>
+	<name>MyTiles - Webapp</name>
 
 	<properties>
 
 	</properties>
 
-	<dependencies>
+	<profiles>
+		<!-- ================= Developer Profiles ================= -->
+		<profile>
+			<id>fcarta</id>
+			<activation>
+				<property>
+					<name>env.USER</name>
+					<value>fcarta</value>
+				</property>
+			</activation>
+			<properties>
 
-	</dependencies>
+			</properties>
+		</profile>
+
+		<profile>
+			<id>awerhane</id>
+			<activation>
+				<property>
+					<name>env.USER</name>
+					<value>awerhane</value>
+				</property>
+			</activation>
+			<properties>
+
+			</properties>
+		</profile>
+	</profiles>
+	
+    <dependencies>
+
+    </dependencies>	
+
+	<build>
+		<finalName>mytiles</finalName>
+
+		<plugins>
+			<plugin>
+				<groupId>org.eclipse.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<version>9.2.10</version>
+
+			</plugin>
+		</plugins>
+	</build>
 
 </project>

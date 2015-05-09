@@ -11,14 +11,43 @@
 	</parent>
 	
 	<artifactId>mytiles-core</artifactId>
-	<name>MyTiles Core</name>
+	<name>MyTiles - Core</name>
 	
 	<properties>
 
 	</properties>
 
-	<dependencies>
+    <profiles>
+        <!-- ================= Developer Profiles ================= -->
+        <profile>
+            <id>fcarta</id>
+            <activation>
+                <property>
+                    <name>env.USER</name>
+                    <value>fcarta</value>
+                </property>
+            </activation>
+            <properties>
 
-	</dependencies>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>awerhane</id>
+            <activation>
+                <property>
+                    <name>env.USER</name>
+                    <value>awerhane</value>
+                </property>
+            </activation>
+            <properties>
+
+            </properties>
+        </profile>
+    </profiles>
+
+    <dependencies>
+
+    </dependencies>
 
 </project>
