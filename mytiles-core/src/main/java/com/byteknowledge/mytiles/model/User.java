@@ -1,16 +1,18 @@
 package com.byteknowledge.mytiles.model;
 
+import java.util.UUID;
+
 
 public class User {
     
-    private String id;
+    private UUID id;
     private String userName;
 
-    public String getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

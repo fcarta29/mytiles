@@ -6,13 +6,13 @@
 	<link rel="stylesheet" type="text/css" href="/css/jquery-ui.min.css">
 	<link rel="stylesheet" type="text/css" href="/css/jquery-ui.structure.min.css">
     <style>
-        #draggable1 { 
+        #draggable359ac820-029f-11e5-b939-0800200c9a66 { 
             width: 150px;
             height: 150px; 
             padding: 0.5em;
             border: 1px solid red 
         }
-        #draggable2 { 
+        #draggable468dc560-029f-11e5-b939-0800200c9a66 { 
             width: 150px;
             height: 150px; 
             padding: 0.5em;
@@ -30,18 +30,18 @@
         $(function() {
         	$('#nameDiv').hide();
         	$('#conversationDiv').hide();
-        	$( "#draggable1" ).hide();
-        	$( "#draggable2" ).hide();
+        	$( "#draggable359ac820-029f-11e5-b939-0800200c9a66" ).hide();
+        	$( "#draggable468dc560-029f-11e5-b939-0800200c9a66" ).hide();
         	
-        	$("#draggable1").draggable({
+        	$("#draggable359ac820-029f-11e5-b939-0800200c9a66").draggable({
         	    stop: function (event,ui) {
-        	        sendTileMovement(1,ui);	   
+        	        sendTileMovement("359ac820-029f-11e5-b939-0800200c9a66",ui);	   
        	        }	
         	});
         	
-        	$("#draggable2").draggable({
+        	$("#draggable468dc560-029f-11e5-b939-0800200c9a66").draggable({
         		stop: function (event,ui) {
-                    sendTileMovement(2,ui);     
+                    sendTileMovement("468dc560-029f-11e5-b939-0800200c9a66",ui);     
                 }
         	});
         	
@@ -80,13 +80,13 @@
             if (connected) {
             	$('#nameDiv').show();
             	$('#conversationDiv').show();
-                $( "#draggable1" ).show();
-                $( "#draggable2" ).show();
+                $( "#draggable359ac820-029f-11e5-b939-0800200c9a66" ).show();
+                $( "#draggable468dc560-029f-11e5-b939-0800200c9a66" ).show();
             } else {
             	$('#nameDiv').hide();
                 $('#conversationDiv').hide();
-                $( "#draggable1" ).hide();
-                $( "#draggable2" ).hide();
+                $( "#draggable359ac820-029f-11e5-b939-0800200c9a66" ).hide();
+                $( "#draggable468dc560-029f-11e5-b939-0800200c9a66" ).hide();
             }
             $('#response').html('');            
         }
@@ -138,12 +138,12 @@
     <div id="nameDiv">
         <label>What is your name?</label><input type="text" id="name" />
     </div>
-    <div id="draggable1" class="ui-widget-content">
+    <div id="draggable359ac820-029f-11e5-b939-0800200c9a66" class="ui-widget-content">
       <p>Funny Word</p>
       <p id="draggableMessage"></p>
     </div>
     <br/>
-    <div id="draggable2" class="ui-widget-content">
+    <div id="draggable468dc560-029f-11e5-b939-0800200c9a66" class="ui-widget-content">
       <p>Halarious Word</p>
       <p id="draggableMessage"></p>
     </div>

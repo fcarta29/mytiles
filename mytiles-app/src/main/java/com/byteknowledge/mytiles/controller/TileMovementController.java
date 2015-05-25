@@ -1,50 +1,87 @@
 package com.byteknowledge.mytiles.controller;
 
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 
+import com.byteknowledge.mytiles.dto.TileLock;
 import com.byteknowledge.mytiles.dto.TileMovement;
-import com.byteknowledge.mytiles.model.Tile;
 
 @Controller
 public class TileMovementController {
     
-    private static final Object TILE_LOCK = new Object();
-    private static final ConcurrentHashMap<String,Tile> TILE_MAP = new ConcurrentHashMap<String,Tile>();
+    //private static final Object TILE_LOCK = new Object();
+    //private static final ConcurrentHashMap<UUID,TileLock> TILE_MAP = new ConcurrentHashMap<UUID,TileLock>();
     
     private final static Logger LOG = Logger.getLogger(TileMovementController.class);
     
-    @MessageMapping("/tile/move")
-    @SendTo("/topic/tileUpdate") //TODO[fcarta] add push to tile persist channel also
-    public TileMovement moveTile(final TileMovement tileMovement) {
-        LOG.debug(tileMovement);
-        final Tile tile = movementToTile(tileMovement);
-        if (tile != null) {
-            synchronized(TILE_LOCK) {
-                TILE_MAP.put(tile.getId(), tile);
+/*    @MessageMapping("/tile/lock")
+    @SendTo(value={"/topic/tileLock"})
+    public TileLock lockTile(final TileLock tileLock) {
+        synchronized(TILE_LOCK) {
+            if (tileLock != null) {
+                final UUID tileLockId = UUID.fromString(tileLock.getTileId());
+                if (TILE_MAP.contains(tileLockId)) {
+                    return TILE_MAP.get(tileLockId);
+                }
+                TILE_MAP.put(tileLockId, tileLock);
+                return tileLock;
             }
-            return tileMovement;
         }
-        return null;
+        return null; // TODO[fcarta] need to see if nulls are actually sent, if so then we need to not use @SendTo?
     }
     
-    private Tile movementToTile(final TileMovement tileMovement) {
-        Tile tile = null;
-        if (TILE_MAP.contains(tileMovement.getTileId())) {
-            tile = TILE_MAP.get(tileMovement.getTileId());
-        } else {
-            tile = new Tile();
-            tile.setId(tileMovement.getTileId());
+    @MessageMapping("/tile/release")
+    public TileLock releaseTile(final TileLock tileLock) {
+        if (tileLock != null) {
+            return removeTileLock(UUID.fromString(tileLock.getTileId()));
+        } 
+        return null; // TODO[fcarta] need to see if nulls are actually sent, if so then we need to not use @SendTo?
+    }    
+    
+    @SendTo(value={"/topic/tileRelease"})
+    private TileLock removeTileLock(final UUID tileLockId) {
+        TileLock tileLock = null;
+        synchronized(TILE_LOCK) {
+            if (TILE_MAP.contains(tileLockId)) {
+                tileLock = TILE_MAP.get(tileLockId);
+            }            
+            TILE_MAP.remove(tileLockId);
         }
-        tile.setLastMovedById(tileMovement.getTileUserId());
-        tile.setLastUpdatedTime(tileMovement.getTileTimestamp());
-        tile.setX(tileMovement.getTileX());
-        tile.setY(tileMovement.getTileY());
-        tile.setZ(tileMovement.getTileZ());
-        return tile;
+        return tileLock;
+    }
+*/
+    
+    @MessageMapping("/tile/move")
+    @SendTo(value={"/topic/tileUpdate", "/topic/tilePersist"})
+    public TileMovement moveTile(final TileMovement tileMovement) {
+        if (tileMovement != null && hasPermissionToMove(tileMovement)) {
+            LOG.debug(tileMovement);
+            if (tileMovement != null) {
+                //removeTileLock(UUID.fromString(tileMovement.getTileId()));
+                return tileMovement;
+            }
+        }
+        return null; // TODO[fcarta] need to see if nulls are actually sent, if so then we need to not use @SendTo?
+    }
+
+    public boolean hasPermissionToMove(final TileMovement tileMovement) {
+        return Boolean.TRUE;
+        /*synchronized(TILE_LOCK) {
+            final UUID tileLockId = UUID.fromString(tileMovement.getTileId());
+            if (TILE_MAP.contains(tileLockId)) {
+                final TileLock tileLock = TILE_MAP.get(tileLockId);
+                // check the user id strings 
+                return StringUtils.equals(tileLock.getTileUserId(), tileMovement.getTileUserId());
+            } else {
+                
+            }
+        }*/
+        //return Boolean.FALSE;
     }
 }
