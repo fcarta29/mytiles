@@ -1,24 +1,18 @@
 package com.byteknowledge.mytiles.model;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-public class TileBag {
+public class TileBag extends UUIDEntity implements Serializable {
 
-    private UUID id;
+    private static final long serialVersionUID = -3873513545261620269L;
+
     private UUID creatorId;
     private Long createdTime;
     private String name;
     private Set<Tile> tiles = new HashSet<Tile>();
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
 
     public UUID getCreatorId() {
         return creatorId;
@@ -58,7 +52,7 @@ public class TileBag {
         int result = 1;
         result = prime * result + ((createdTime == null) ? 0 : createdTime.hashCode());
         result = prime * result + ((creatorId == null) ? 0 : creatorId.hashCode());
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         return result;
     }
 
@@ -81,17 +75,17 @@ public class TileBag {
                 return false;
         } else if (!creatorId.equals(other.creatorId))
             return false;
-        if (id == null) {
-            if (other.id != null)
+        if (getId() == null) {
+            if (other.getId() != null)
                 return false;
-        } else if (!id.equals(other.id))
+        } else if (!getId().equals(other.getId()))
             return false;
         return true;
     }
 
     @Override
     public String toString() {
-        return "TileBag [id=" + id + ", creatorId=" + creatorId + ", createdTime=" + createdTime + ", name=" + name
+        return "TileBag [id=" + getId() + ", creatorId=" + creatorId + ", createdTime=" + createdTime + ", name=" + name
                 + ", tiles=" + tiles + "]";
     }
 

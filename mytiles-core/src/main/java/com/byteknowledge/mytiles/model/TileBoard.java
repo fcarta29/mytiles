@@ -1,12 +1,14 @@
 package com.byteknowledge.mytiles.model;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-public class TileBoard {
+public class TileBoard extends UUIDEntity implements Serializable {
 
-    private UUID id;
+    private static final long serialVersionUID = -7821259691280564975L;
+
     private UUID creatorId;
     private UUID ownerId;
     private UUID tileBagId;
@@ -15,14 +17,6 @@ public class TileBoard {
     private Long createdTime;
     private Long lastUpdatedTime;
 
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
     public UUID getCreatorId() {
         return creatorId;
     }
@@ -30,7 +24,6 @@ public class TileBoard {
     public void setCreatorId(UUID creatorId) {
         this.creatorId = creatorId;
     }
-    
     
     public UUID getOwnerId() {
         return ownerId;
@@ -85,7 +78,7 @@ public class TileBoard {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((creatorId == null) ? 0 : creatorId.hashCode());
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((tileBagId == null) ? 0 : tileBagId.hashCode());
         return result;
     }
@@ -104,10 +97,10 @@ public class TileBoard {
                 return false;
         } else if (!creatorId.equals(other.creatorId))
             return false;
-        if (id == null) {
-            if (other.id != null)
+        if (getId() == null) {
+            if (other.getId() != null)
                 return false;
-        } else if (!id.equals(other.id))
+        } else if (!getId().equals(other.getId()))
             return false;
         if (tileBagId == null) {
             if (other.tileBagId != null)
@@ -119,7 +112,7 @@ public class TileBoard {
 
     @Override
     public String toString() {
-        return "TileBoard [id=" + id + ", creatorId=" + creatorId + ", ownerId=" + ownerId + ", tileBagId=" + tileBagId
+        return "TileBoard [id=" + getId() + ", creatorId=" + creatorId + ", ownerId=" + ownerId + ", tileBagId=" + tileBagId
                 + ", participantIds=" + participantIds + ", name=" + name + ", createdTime=" + createdTime
                 + ", lastUpdatedTime=" + lastUpdatedTime + "]";
     }

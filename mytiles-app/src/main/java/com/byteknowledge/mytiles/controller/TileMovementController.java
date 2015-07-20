@@ -1,15 +1,10 @@
 package com.byteknowledge.mytiles.controller;
 
-import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
-
-import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 
-import com.byteknowledge.mytiles.dto.TileLock;
 import com.byteknowledge.mytiles.dto.TileMovement;
 
 @Controller
@@ -58,7 +53,7 @@ public class TileMovementController {
 */
     
     @MessageMapping("/tile/move")
-    @SendTo(value={"/topic/tileUpdate", "/topic/tilePersist"})
+    @SendTo(value={"/topic/tileUpdate"})
     public TileMovement moveTile(final TileMovement tileMovement) {
         if (tileMovement != null && hasPermissionToMove(tileMovement)) {
             LOG.debug(tileMovement);

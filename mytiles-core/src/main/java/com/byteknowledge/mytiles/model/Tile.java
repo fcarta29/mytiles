@@ -1,21 +1,15 @@
 package com.byteknowledge.mytiles.model;
 
+import java.io.Serializable;
 import java.util.UUID;
 
-public class Tile {
+public class Tile extends UUIDEntity implements Serializable {
 
-    private UUID id;
+    private static final long serialVersionUID = 6427325005290619328L;
+
     private UUID creatorId;
     private Long createdTime;
     private String label; // TODO[fcarta] make into I18N id or mapping ?
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
 
     public UUID getCreatorId() {
         return creatorId;
@@ -68,7 +62,7 @@ public class Tile {
 
     @Override
     public String toString() {
-        return "Tile [id=" + id + ", creatorId=" + creatorId + ", createdTime=" + createdTime 
+        return "Tile [id=" + getId() + ", creatorId=" + creatorId + ", createdTime=" + createdTime 
                 + ", label=" + label + "]";
     }
 

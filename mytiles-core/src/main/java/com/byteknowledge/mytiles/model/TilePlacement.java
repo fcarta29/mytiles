@@ -1,8 +1,11 @@
 package com.byteknowledge.mytiles.model;
 
+import java.io.Serializable;
 import java.util.UUID;
 
-public class TilePlacement {
+public class TilePlacement extends UUIDEntity implements Serializable  {
+
+    private static final long serialVersionUID = -3848404695700941011L;
 
     private UUID tileId;
     private String lastMovedById;
@@ -13,6 +16,16 @@ public class TilePlacement {
     private Long y;
     private Long z;
 
+    @Override
+    public UUID getId() {
+        return getTileId();
+    }
+    
+    @Override
+    public void setId(UUID id) {
+        setTileId(id);
+    }
+    
     public UUID getTileId() {
         return tileId;
     }
