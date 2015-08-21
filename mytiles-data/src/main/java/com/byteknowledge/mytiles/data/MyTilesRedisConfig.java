@@ -13,6 +13,8 @@ import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.listener.PatternTopic;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
+import org.springframework.data.redis.serializer.RedisSerializer;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import com.byteknowledge.mytiles.data.receiver.DataReceiver;
 
@@ -37,13 +39,6 @@ public class MyTilesRedisConfig {
         factory.setUsePool(true);
         return factory;
     }
-
-    /*@Bean
-    public RedisTemplate<String,User> redisTemplate() {
-        RedisTemplate<String,User> redisTemplate = new RedisTemplate<String,User>();
-        redisTemplate.setConnectionFactory(jedisConnectionFactory());
-        return redisTemplate;
-    }*/
     
     @Bean
     public MessageListenerAdapter listenerAdapter(DataReceiver receiver) {

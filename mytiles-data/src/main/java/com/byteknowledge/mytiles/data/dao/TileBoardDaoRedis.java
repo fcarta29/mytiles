@@ -18,17 +18,15 @@ public class TileBoardDaoRedis extends AbstractDaoRedis<TileBoard> implements Ti
     
     @Bean(name="tileBoardRedisTemplate")
     public RedisTemplate<String,TileBoard> redisTemplate() {
-        RedisTemplate<String,TileBoard> redisTemplate = new RedisTemplate<String,TileBoard>();
-        redisTemplate.setConnectionFactory(jedisConnectionFactory);
-        return redisTemplate;
+        return getRedisTemplate();
     }    
     
     @Autowired
     @Qualifier("tileBoardRedisTemplate")
-    private RedisTemplate<String,TileBoard> redisTemplate;
+    private RedisTemplate<String,TileBoard> redisTemplate = new RedisTemplate<String,TileBoard>();
     
     @Override
-    public RedisTemplate<String,TileBoard> getRedisTemplate() {
+    public RedisTemplate<String,TileBoard> getEntityRedisTemplate() {
         return redisTemplate;
     }
     
@@ -36,4 +34,10 @@ public class TileBoardDaoRedis extends AbstractDaoRedis<TileBoard> implements Ti
     public String getObjectKey() {
         return OBJECT_KEY;
     }
+    
+    @Override
+    public Class<TileBoard> getObjectClass() {
+        return TileBoard.class;
+    }
+    
 }

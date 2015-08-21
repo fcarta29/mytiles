@@ -18,17 +18,15 @@ public class UserDaoRedis extends AbstractDaoRedis<User> implements UserDao {
     
     @Bean(name="userRedisTemplate")
     public RedisTemplate<String,User> redisTemplate() {
-        RedisTemplate<String,User> redisTemplate = new RedisTemplate<String,User>();
-        redisTemplate.setConnectionFactory(jedisConnectionFactory);
-        return redisTemplate;
+        return getRedisTemplate();
     }    
     
     @Autowired
     @Qualifier("userRedisTemplate")
-    private RedisTemplate<String,User> redisTemplate;
+    private RedisTemplate<String,User> redisTemplate = new RedisTemplate<String,User>();
     
     @Override
-    public RedisTemplate<String,User> getRedisTemplate() {
+    public RedisTemplate<String,User> getEntityRedisTemplate() {
         return redisTemplate;
     }
     
@@ -36,4 +34,10 @@ public class UserDaoRedis extends AbstractDaoRedis<User> implements UserDao {
     public String getObjectKey() {
         return OBJECT_KEY;
     }
+    
+    @Override
+    public Class<User> getObjectClass() {
+    	return User.class;
+    }
+    
 }

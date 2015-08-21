@@ -18,23 +18,26 @@ public class TileBagDaoRedis extends AbstractDaoRedis<TileBag> implements TileBa
     
     @Bean(name="tileBagRedisTemplate")
     public RedisTemplate<String,TileBag> redisTemplate() {
-        RedisTemplate<String,TileBag> redisTemplate = new RedisTemplate<String,TileBag>();
-        redisTemplate.setConnectionFactory(jedisConnectionFactory);
-        return redisTemplate;
+        return getRedisTemplate();
     }    
     
     @Autowired
     @Qualifier("tileBagRedisTemplate")
-    private RedisTemplate<String,TileBag> redisTemplate;
+    private RedisTemplate<String,TileBag> redisTemplate = new RedisTemplate<String,TileBag>();
     
     @Override
-    public RedisTemplate<String,TileBag> getRedisTemplate() {
+    public RedisTemplate<String,TileBag> getEntityRedisTemplate() {
         return redisTemplate;
     }
     
     @Override
     public String getObjectKey() {
         return OBJECT_KEY;
+    }
+
+    @Override
+    public Class<TileBag> getObjectClass() {
+        return TileBag.class;
     }
 
 }

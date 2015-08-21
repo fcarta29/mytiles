@@ -18,17 +18,15 @@ public class TilePlacementDaoRedis extends AbstractDaoRedis<TilePlacement> imple
     
     @Bean(name="tilePlacementRedisTemplate")
     public RedisTemplate<String,TilePlacement> redisTemplate() {
-        RedisTemplate<String,TilePlacement> redisTemplate = new RedisTemplate<String,TilePlacement>();
-        redisTemplate.setConnectionFactory(jedisConnectionFactory);
-        return redisTemplate;
+        return getRedisTemplate();
     }    
     
     @Autowired
     @Qualifier("tilePlacementRedisTemplate")
-    private RedisTemplate<String,TilePlacement> redisTemplate;
+    private RedisTemplate<String,TilePlacement> redisTemplate = new RedisTemplate<String,TilePlacement>();
     
     @Override
-    public RedisTemplate<String,TilePlacement> getRedisTemplate() {
+    public RedisTemplate<String,TilePlacement> getEntityRedisTemplate() {
         return redisTemplate;
     }
     
@@ -36,4 +34,10 @@ public class TilePlacementDaoRedis extends AbstractDaoRedis<TilePlacement> imple
     public String getObjectKey() {
         return OBJECT_KEY;
     }
+    
+    @Override
+    public Class<TilePlacement> getObjectClass() {
+    	return TilePlacement.class;
+    }
+    
 }

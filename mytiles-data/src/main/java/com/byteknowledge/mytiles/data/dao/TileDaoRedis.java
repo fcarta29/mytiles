@@ -18,22 +18,25 @@ public class TileDaoRedis extends AbstractDaoRedis<Tile> implements TileDao {
     
     @Bean(name="tileRedisTemplate")
     public RedisTemplate<String,Tile> redisTemplate() {
-        RedisTemplate<String,Tile> redisTemplate = new RedisTemplate<String,Tile>();
-        redisTemplate.setConnectionFactory(jedisConnectionFactory);
-        return redisTemplate;
+        return getRedisTemplate();
     }    
     
     @Autowired
     @Qualifier("tileRedisTemplate")
-    private RedisTemplate<String,Tile> redisTemplate;
+    private RedisTemplate<String,Tile> redisTemplate = new RedisTemplate<String,Tile>();
     
     @Override
-    public RedisTemplate<String,Tile> getRedisTemplate() {
+    public RedisTemplate<String,Tile> getEntityRedisTemplate() {
         return redisTemplate;
     }
     
     @Override
     public String getObjectKey() {
         return OBJECT_KEY;
+    }
+    
+    @Override
+    public Class<Tile> getObjectClass() {
+    	return Tile.class;
     }
 }

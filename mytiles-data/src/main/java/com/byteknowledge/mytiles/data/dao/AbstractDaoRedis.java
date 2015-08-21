@@ -6,6 +6,8 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import com.byteknowledge.mytiles.dao.Dao;
 import com.byteknowledge.mytiles.model.UUIDEntity;
@@ -17,9 +19,20 @@ public abstract class AbstractDaoRedis<E extends UUIDEntity> implements Dao<E> {
     @Autowired
     protected JedisConnectionFactory jedisConnectionFactory;
     
-    abstract public RedisTemplate<String,E> getRedisTemplate();
+    abstract public RedisTemplate<String,E> getEntityRedisTemplate();
+    
+    protected RedisTemplate<String,E> getRedisTemplate() {
+    	final RedisTemplate<String,E> redisTemplate = getEntityRedisTemplate();
+    	redisTemplate.setConnectionFactory(jedisConnectionFactory);
+    	redisTemplate.setKeySerializer(new StringRedisSerializer());
+    	redisTemplate.setHashValueSerializer(new Jackson2JsonRedisSerializer<E>(getObjectClass()));
+    	redisTemplate.setValueSerializer(new Jackson2JsonRedisSerializer<E>(getObjectClass()));       
+    	return redisTemplate;
+    }
     
     abstract public String getObjectKey();
+    
+    abstract public Class<E> getObjectClass();
     
     @SuppressWarnings("unchecked")
     @Override
