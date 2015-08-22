@@ -1,6 +1,11 @@
 package com.byteknowledge.mytiles.controller;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
@@ -14,6 +19,9 @@ public class TileMovementController {
     //private static final ConcurrentHashMap<UUID,TileLock> TILE_MAP = new ConcurrentHashMap<UUID,TileLock>();
     
     private final static Logger LOG = Logger.getLogger(TileMovementController.class);
+    
+    @Autowired
+    protected JedisConnectionFactory jedisConnectionFactory;
     
 /*    @MessageMapping("/tile/lock")
     @SendTo(value={"/topic/tileLock"})
@@ -52,6 +60,16 @@ public class TileMovementController {
     }
 */
     
+    protected RedisTemplate<String,TileMovement> getRedisTemplate() {
+        final RedisTemplate<String,TileMovement> redisTemplate = new RedisTemplate<String,TileMovement>();
+        redisTemplate.setConnectionFactory(jedisConnectionFactory);
+        redisTemplate.setKeySerializer(new StringRedisSerializer());
+        redisTemplate.setHashValueSerializer(new Jackson2JsonRedisSerializer<TileMovement>(TileMovement.class));
+        redisTemplate.setValueSerializer(new Jackson2JsonRedisSerializer<TileMovement>(TileMovement.class));       
+        redisTemplate.afterPropertiesSet();
+        return redisTemplate;
+    }    
+    
     @MessageMapping("/tile/move")
     @SendTo(value={"/topic/tileUpdate"})
     public TileMovement moveTile(final TileMovement tileMovement) {
@@ -59,6 +77,7 @@ public class TileMovementController {
             LOG.debug(tileMovement);
             if (tileMovement != null) {
                 //removeTileLock(UUID.fromString(tileMovement.getTileId()));
+                getRedisTemplate().convertAndSend("data", tileMovement);
                 return tileMovement;
             }
         }
