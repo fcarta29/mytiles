@@ -3,15 +3,13 @@ package com.byteknowledge.mytiles.data.dao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import com.byteknowledge.mytiles.dao.TileDao;
 import com.byteknowledge.mytiles.model.Tile;
 
-@Configuration
-@Component("tileDao")
+@Repository("tileDao")
 public class TileDaoRedis extends AbstractDaoRedis<Tile> implements TileDao {
 
     private static final String OBJECT_KEY = "Tile";
@@ -26,17 +24,7 @@ public class TileDaoRedis extends AbstractDaoRedis<Tile> implements TileDao {
     private RedisTemplate<String,Tile> redisTemplate = new RedisTemplate<String,Tile>();
     
     @Override
-    public RedisTemplate<String,Tile> getEntityRedisTemplate() {
-        return redisTemplate;
-    }
-    
-    @Override
     public String getObjectKey() {
         return OBJECT_KEY;
-    }
-    
-    @Override
-    public Class<Tile> getObjectClass() {
-    	return Tile.class;
     }
 }

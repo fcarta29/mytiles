@@ -7,13 +7,19 @@
     <version>0.1.0-SNAPSHOT</version>
     <name>MyTiles</name>
     <packaging>pom</packaging>
+    
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.3.1.RELEASE</version>
+    </parent>    
 
     <modules>
         <module>mytiles-core</module>
         <module>mytiles-app</module>
         <module>mytiles-webapp</module>
-    <module>mytiles-data</module>
-  </modules>
+    	<module>mytiles-data</module>
+  	</modules>
 
     <prerequisites>
         <maven>3.0.3</maven>
@@ -25,7 +31,7 @@
         <!-- Spring Data -->
         <spring-data-version>1.5.0.RELEASE</spring-data-version>
         <!-- Spring Boot -->
-        <spring-boot-version>1.2.3.RELEASE</spring-boot-version>
+        <spring-boot-version>1.3.1.RELEASE</spring-boot-version>
 
         <!-- Apache Commons -->
         <apache-common-lang-version>3.4</apache-common-lang-version>
@@ -78,86 +84,7 @@
     </profiles>
 
     <dependencyManagement>
-        <dependencies>
-			<dependency>
-			    <groupId>javax.servlet</groupId>
-			    <artifactId>javax.servlet-api</artifactId>
-			    <version>3.1.0</version>
-			</dependency>        
-            <!-- Spring framework -->
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-core</artifactId>
-                <version>${spring-version}</version>
-                <!-- exclusions>
-                    <exclusion>
-                        <groupId>commons-logging</groupId>
-                        <artifactId>commons-logging</artifactId>
-                    </exclusion>
-                </exclusions-->
-            </dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-context</artifactId>
-				<version>${spring-version}</version>
-			</dependency>            
-			<dependency> 
-			     <groupId>org.springframework</groupId> 
-			     <artifactId>spring-aspects</artifactId> 
-			     <version>${spring-version}</version> 
-			</dependency>
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-beans</artifactId>
-                <version>${spring-version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-messaging</artifactId>
-                <version>${spring-version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-websocket</artifactId>
-                <version>${spring-version}</version>
-            </dependency>  
-            <!-- Spring MVC -->
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-webmvc</artifactId>
-                <version>${spring-version}</version>
-            </dependency>            
-            <!-- Spring Web -->
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-web</artifactId>
-                <version>${spring-version}</version>
-            </dependency>
-            <!-- Spring Data -->
-            <dependency>
-                <groupId>org.springframework.data</groupId>
-                <artifactId>spring-data-redis</artifactId>
-                <version>${spring-data-version}</version>
-            </dependency>
-            <!-- Spring Boot -->
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot</artifactId>
-                <version>${spring-boot-version}</version>
-            </dependency>
-			<dependency>
-				<!-- Import dependency management from Spring Boot -->
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-dependencies</artifactId>
-				<version>${spring-boot-version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-autoconfigure</artifactId>
-                <version>${spring-boot-version}</version>
-            </dependency>
+		<dependencies>    
             
             <!-- Apache Commons -->
             <dependency>
@@ -170,38 +97,7 @@
 			    <artifactId>commons-collections4</artifactId>
 			    <version>${apache-commons-collections-version}</version>
 			</dependency>
-            
-            <!-- Log4j -->
-            <dependency>
-                <groupId>org.apache.logging.log4j</groupId>
-                <artifactId>log4j-api</artifactId>
-                <version>${log4j-version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.logging.log4j</groupId>
-                <artifactId>log4j-core</artifactId>
-                <version>${log4j-version}</version>
-            </dependency>
 
-			<dependency>
-				<groupId>com.fasterxml.jackson.core</groupId>
-				<artifactId>jackson-databind</artifactId>
-                <version>${jackson-version}</version>		
-			</dependency>            
-
-            <!-- Unit testing -->
-            <dependency>
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
-                <version>${junit-version}</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-test</artifactId>
-                <version>${spring-version}</version>
-                <scope>test</scope>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 
