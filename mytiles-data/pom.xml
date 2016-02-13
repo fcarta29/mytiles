@@ -68,15 +68,33 @@
             <type>jar</type>
             <scope>compile</scope>
         </dependency>
+        
+        <!-- Testing -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.jayway.restassured</groupId>
+			<artifactId>rest-assured</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.jayway.restassured</groupId>
+			<artifactId>spring-mock-mvc</artifactId>
+		</dependency>		
+        
+        <!-- Swagger TODO[fcarta]: extract these up to main project -->
 		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger2</artifactId>
-			<version>2.2.2</version>
 		</dependency>
 		<dependency>
 		    <groupId>io.springfox</groupId>
 		    <artifactId>springfox-swagger-ui</artifactId>
-		    <version>2.2.2</version>
 		</dependency>		
 	</dependencies>
 	
