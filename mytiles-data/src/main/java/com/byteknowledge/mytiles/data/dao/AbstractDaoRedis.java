@@ -58,4 +58,8 @@ public abstract class AbstractDaoRedis<E extends UUIDEntity> implements Dao<E> {
         }
         getRedisTemplate().opsForHash().put(getObjectKey(), entity.getId().toString(), entity);
     }
+    
+    public void remove(final E entity) {
+    	getRedisTemplate().opsForHash().delete(getObjectKey(), entity.getId().toString());
+    }
 }

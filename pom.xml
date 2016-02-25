@@ -45,6 +45,11 @@
 
         <!-- Testing -->
         <junit-version>4.11</junit-version>
+        <rest-assured.version>2.8.0</rest-assured.version>
+        <embedded-redis-version>0.6</embedded-redis-version>
+
+		<!-- Swagger -->
+		<io-springfox-swagger>2.2.2</io-springfox-swagger>
 
         <java.version>1.7</java.version>
         <resource.delimiter>@</resource.delimiter> <!-- delimiter that doesn't clash with Spring ${} placeholders -->
@@ -97,6 +102,35 @@
 			    <artifactId>commons-collections4</artifactId>
 			    <version>${apache-commons-collections-version}</version>
 			</dependency>
+
+			<!-- Testing -->
+			<dependency>
+				<groupId>com.jayway.restassured</groupId>
+				<artifactId>rest-assured</artifactId>
+				<version>${rest-assured.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.jayway.restassured</groupId>
+				<artifactId>spring-mock-mvc</artifactId>
+				<version>${rest-assured.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.orange.redis-embedded</groupId>
+				<artifactId>embedded-redis</artifactId>
+				<version>${embedded-redis-version}</version>
+			</dependency>			
+
+	        <!-- Swagger -->
+			<dependency>
+				<groupId>io.springfox</groupId>
+				<artifactId>springfox-swagger2</artifactId>
+				<version>${io-springfox-swagger}</version>
+			</dependency>
+			<dependency>
+			    <groupId>io.springfox</groupId>
+			    <artifactId>springfox-swagger-ui</artifactId>
+			    <version>${io-springfox-swagger}</version>
+			</dependency>	
 
         </dependencies>
     </dependencyManagement>

@@ -72,6 +72,16 @@ public class TileBoard extends UUIDEntity implements Serializable {
     public void setLastUpdatedTime(Long lastUpdatedTime) {
         this.lastUpdatedTime = lastUpdatedTime;
     }
+    
+    public TileBoard addParticipant(final User newParticipant) {
+    	participantIds.add(newParticipant);
+    	return this;
+    }
+    
+    public TileBoard removeParticipant(final User removeParticipant) {
+    	participantIds.remove(removeParticipant);
+    	return this;
+    }
 
     @Override
     public int hashCode() {

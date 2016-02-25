@@ -12,4 +12,6 @@ public interface Dao<E extends UUIDEntity> {
     public List<E> list();
     
     public void save(final E entity);
+    
+    public void remove(final E entity);
 }
