@@ -7,11 +7,43 @@ import java.util.UUID;
 import org.apache.http.HttpStatus;
 import org.hamcrest.Matchers;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import com.byteknowledge.mytiles.dao.UserDao;
 import com.byteknowledge.mytiles.model.User;
 import com.byteknowledge.mytiles.service.Service;
 
 public class UserRestControllerTest extends AbstractRestControllerTest {
+	
+	@Autowired
+	protected UserDao userDao;
+	
+    protected User userAndrew;
+    protected User userFrank;
+	
+	@Override
+	protected void setUpData() {
+        userAndrew = new User();
+        userAndrew.setId(UUID.fromString(Service.USER2_ID));
+        userAndrew.setUserName("awerhane");
+        userAndrew.setFirstName("Andrew");
+        userAndrew.setLastName("Werhane");
+        userDao.save(userAndrew);
+		
+        userFrank = new User();
+        userFrank.setId(UUID.fromString(Service.USER1_ID));
+        userFrank.setUserName("fcarta");
+        userFrank.setFirstName("Frank");
+        userFrank.setLastName("Carta");
+        userDao.save(userFrank);
+	}
+	
+	@Override
+	protected void clearData() {
+		for (final User user : userDao.list()) {
+			userDao.remove(user);
+		}
+	}	
 
 	@Test
 	public void getUserFrank() {

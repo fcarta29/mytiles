@@ -85,7 +85,11 @@
 		<dependency>
 			<groupId>com.jayway.restassured</groupId>
 			<artifactId>spring-mock-mvc</artifactId>
-		</dependency>		
+		</dependency>
+		<dependency>
+			<groupId>com.orange.redis-embedded</groupId>
+			<artifactId>embedded-redis</artifactId>
+		</dependency>   
         
         <!-- Swagger TODO[fcarta]: extract these up to main project -->
 		<dependency>
@@ -105,6 +109,12 @@
                 <filtering>true</filtering>
             </resource>
         </resources>        
+        <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
+                <filtering>true</filtering>
+            </testResource>
+        </testResources>        
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

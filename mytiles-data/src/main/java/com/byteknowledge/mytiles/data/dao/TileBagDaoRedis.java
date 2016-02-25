@@ -27,5 +27,4 @@ public class TileBagDaoRedis extends AbstractDaoRedis<TileBag> implements TileBa
     public String getObjectKey() {
         return OBJECT_KEY;
     }
-
 }

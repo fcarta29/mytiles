@@ -7,7 +7,6 @@ import org.apache.log4j.Logger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.ComponentScan;
 
 import com.byteknowledge.mytiles.dao.TileBagDao;
 import com.byteknowledge.mytiles.dao.TileBoardDao;
@@ -20,7 +19,6 @@ import com.byteknowledge.mytiles.model.User;
 import com.byteknowledge.mytiles.service.Service;
 
 @SpringBootApplication
-@ComponentScan("com.byteknowledge.mytiles")
 public class MyTilesDataApplication {
     
     private final static Logger LOG = Logger.getLogger(MyTilesDataApplication.class);

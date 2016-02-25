@@ -45,6 +45,16 @@ public class TileBag extends UUIDEntity implements Serializable {
     public void setTiles(Set<Tile> tiles) {
         this.tiles = tiles;
     }
+    
+	public TileBag addTile(final Tile newTile) {
+		tiles.add(newTile);
+    	return this;
+	}
+	
+	public TileBag removeTile(final Tile removeTile) {
+    	tiles.remove(removeTile);
+    	return this;
+	}
 
     @Override
     public int hashCode() {
