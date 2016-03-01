@@ -4,26 +4,25 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.byteknowledge.mytiles.dto.TileDto.TileBuilder;
+
 public class TileBagDto extends UUIDDto implements Serializable {
 
     private static final long serialVersionUID = -8919382365757243476L;
 
-    private final String creatorId;
     private final String createdTime;
     private final String name;
     private final List<TileDto> tiles;
 
     private TileBagDto(final TileBagBuilder builder) {
         super(builder.id);
-        this.creatorId = builder.creatorId;
         this.createdTime = builder.createdTime;
         this.name = builder.name;
-        this.tiles = builder.tiles;
+        this.tiles = new ArrayList<TileDto>();
+        for (final TileBuilder tileBuilder : builder.tileBuilders) {
+        	this.tiles.add(tileBuilder.build());
+        }
     }    
-    
-    public String getCreatorId() {
-        return creatorId;
-    }
 
     public String getCreatedTime() {
         return createdTime;
@@ -39,14 +38,12 @@ public class TileBagDto extends UUIDDto implements Serializable {
 
     public static final class TileBagBuilder {
         
-        private final String creatorId;
         private final String name;
         private String id;
         private String createdTime;
-        private List<TileDto> tiles = new ArrayList<TileDto>();
+        private List<TileBuilder> tileBuilders = new ArrayList<TileBuilder>();
     
-        public TileBagBuilder(final String creatorId, final String name) {
-            this.creatorId = creatorId;
+        public TileBagBuilder(final String name) {
             this.name = name;
         }
         
@@ -60,58 +57,50 @@ public class TileBagDto extends UUIDDto implements Serializable {
             return this;
         }        
         
-        public TileBagBuilder addTile(final TileDto tile) {
-            this.tiles.add(tile);
+        public TileBagBuilder addTile(final TileBuilder tileBuilder) {
+            this.tileBuilders.add(tileBuilder);
             return this;
         }
         
         public TileBagDto build() {
             return new TileBagDto(this);
         }
-    }    
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((creatorId == null) ? 0 : creatorId.hashCode());
-        result = prime * result + ((name == null) ? 0 : name.hashCode());
-        return result;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (!(obj instanceof TileBagDto)) {
-            return false;
-        }
-        TileBagDto other = (TileBagDto) obj;
-        if (creatorId == null) {
-            if (other.creatorId != null) {
-                return false;
-            }
-        } else if (!creatorId.equals(other.creatorId)) {
-            return false;
-        }
-        if (name == null) {
-            if (other.name != null) {
-                return false;
-            }
-        } else if (!name.equals(other.name)) {
-            return false;
-        }
-        return true;
-    }
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		return result;
+	}
 
-    @Override
-    public String toString() {
-        return "TileBag [id=" + getId() + ", creatorId=" + creatorId + ", createdTime=" + createdTime + ", name=" + name
-                + ", tiles=" + tiles + "]";
-    }
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (!super.equals(obj)) {
+			return false;
+		}
+		if (!(obj instanceof TileBagDto)) {
+			return false;
+		}
+		TileBagDto other = (TileBagDto) obj;
+		if (name == null) {
+			if (other.name != null) {
+				return false;
+			}
+		} else if (!name.equals(other.name)) {
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "TileBagDto [createdTime=" + createdTime + ", name=" + name + ", tiles=" + tiles
+				+ ", id=" + id + "]";
+	}    
 
 }
