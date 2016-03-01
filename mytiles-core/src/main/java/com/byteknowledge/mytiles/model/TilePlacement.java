@@ -3,28 +3,38 @@ package com.byteknowledge.mytiles.model;
 import java.io.Serializable;
 import java.util.UUID;
 
-public class TilePlacement extends UUIDEntity implements Serializable  {
+import org.apache.commons.lang3.StringUtils;
+
+public class TilePlacement implements Serializable {
 
     private static final long serialVersionUID = -3848404695700941011L;
 
+    private UUID tileBoardId;
+    private UUID tileBagId;
     private UUID tileId;
-    private String lastMovedById;
-    private Long lastUpdatedTime;
+    private String lastMovedById = StringUtils.EMPTY;
+    private Long lastUpdatedTime = Long.valueOf(0);
 
     // TODO[fcarta] make these a dimension class or something
-    private Long x;
-    private Long y;
-    private Long z;
-
-    @Override
-    public UUID getId() {
-        return getTileId();
-    }
+    private Long x = Long.valueOf(0);
+    private Long y = Long.valueOf(0);
+    private Long z = Long.valueOf(0);
     
-    @Override
-    public void setId(UUID id) {
-        setTileId(id);
-    }
+    public UUID getTileBoardId() {
+		return tileBoardId;
+	}
+
+	public void setTileBoardId(UUID tileBoardId) {
+		this.tileBoardId = tileBoardId;
+	}
+
+	public UUID getTileBagId() {
+		return tileBagId;
+	}
+
+	public void setTileBagId(UUID tileBagId) {
+		this.tileBagId = tileBagId;
+	}
     
     public UUID getTileId() {
         return tileId;
@@ -32,9 +42,9 @@ public class TilePlacement extends UUIDEntity implements Serializable  {
 
     public void setTileId(UUID id) {
         this.tileId = id;
-    }
-
-    public String getLastMovedById() {
+    }	
+	
+	public String getLastMovedById() {
         return lastMovedById;
     }
 
@@ -75,39 +85,56 @@ public class TilePlacement extends UUIDEntity implements Serializable  {
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((tileId == null) ? 0 : tileId.hashCode());
-        result = prime * result + ((lastUpdatedTime == null) ? 0 : lastUpdatedTime.hashCode());
-        return result;
-    }
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((tileBagId == null) ? 0 : tileBagId.hashCode());
+		result = prime * result + ((tileBoardId == null) ? 0 : tileBoardId.hashCode());
+		result = prime * result + ((tileId == null) ? 0 : tileId.hashCode());
+		return result;
+	}
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        TilePlacement other = (TilePlacement) obj;
-        if (tileId == null) {
-            if (other.tileId != null)
-                return false;
-        } else if (!tileId.equals(other.tileId))
-            return false;
-        if (lastUpdatedTime == null) {
-            if (other.lastUpdatedTime != null)
-                return false;
-        } else if (!lastUpdatedTime.equals(other.lastUpdatedTime))
-            return false;
-        return true;
-    }
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (!super.equals(obj)) {
+			return false;
+		}
+		if (!(obj instanceof TilePlacement)) {
+			return false;
+		}
+		TilePlacement other = (TilePlacement) obj;
+		if (tileBagId == null) {
+			if (other.tileBagId != null) {
+				return false;
+			}
+		} else if (!tileBagId.equals(other.tileBagId)) {
+			return false;
+		}
+		if (tileBoardId == null) {
+			if (other.tileBoardId != null) {
+				return false;
+			}
+		} else if (!tileBoardId.equals(other.tileBoardId)) {
+			return false;
+		}
+		if (tileId == null) {
+			if (other.tileId != null) {
+				return false;
+			}
+		} else if (!tileId.equals(other.tileId)) {
+			return false;
+		}
+		return true;
+	}
 
-    @Override
-    public String toString() {
-        return "TilePlacement [tileId=" + tileId + "s, lastMovedById=" + lastMovedById + ", lastUpdatedTime="
-                + lastUpdatedTime + ", x=" + x + ", y=" + y + ", z=" + z + "]";
-    }
+	@Override
+	public String toString() {
+		return "TilePlacement [tileBoardId=" + tileBoardId + ", tileBagId=" + tileBagId + ", tileId=" + tileId
+				+ ", lastMovedById=" + lastMovedById + ", lastUpdatedTime=" + lastUpdatedTime + ", x=" + x + ", y=" + y
+				+ ", z=" + z + "]";
+	}
+	
 }

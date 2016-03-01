@@ -1,21 +1,22 @@
 package com.byteknowledge.mytiles.model;
 
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-public class TileBoard extends UUIDEntity implements Serializable {
+import org.apache.commons.lang3.StringUtils;
+
+public class TileBoard extends AbstractUUIDEntity {
 
     private static final long serialVersionUID = -7821259691280564975L;
 
     private UUID creatorId;
     private UUID ownerId;
     private UUID tileBagId;
-    private Set<User> participantIds = new HashSet<User>();
-    private String name;
-    private Long createdTime;
-    private Long lastUpdatedTime;
+    private Set<UUID> participantIds = new HashSet<UUID>();
+    private String name = StringUtils.EMPTY;
+    private Long createdTime = Long.valueOf(0);
+    private Long lastUpdatedTime = Long.valueOf(0);
 
     public UUID getCreatorId() {
         return creatorId;
@@ -41,11 +42,11 @@ public class TileBoard extends UUIDEntity implements Serializable {
         this.tileBagId = tileBagId;
     }
 
-    public Set<User> getParticipantIds() {
+    public Set<UUID> getParticipantIds() {
         return participantIds;
     }
 
-    public void setParticipantIds(Set<User> participantIds) {
+    public void setParticipantIds(Set<UUID> participantIds) {
         this.participantIds = participantIds;
     }
 
@@ -74,12 +75,12 @@ public class TileBoard extends UUIDEntity implements Serializable {
     }
     
     public TileBoard addParticipant(final User newParticipant) {
-    	participantIds.add(newParticipant);
+    	participantIds.add(newParticipant.getId());
     	return this;
     }
     
     public TileBoard removeParticipant(final User removeParticipant) {
-    	participantIds.remove(removeParticipant);
+    	participantIds.remove(removeParticipant.getId());
     	return this;
     }
 

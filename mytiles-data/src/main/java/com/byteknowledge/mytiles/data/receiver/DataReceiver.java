@@ -1,5 +1,6 @@
 package com.byteknowledge.mytiles.data.receiver;
 
+import java.util.Calendar;
 import java.util.UUID;
 import java.util.concurrent.CountDownLatch;
 
@@ -34,9 +35,11 @@ public class DataReceiver {
 	        final TileMovement tileMovement = mapper.readValue(message, TileMovement.class);
 	        
 	        final TilePlacement tilePlacement = new TilePlacement();
+	        tilePlacement.setTileBoardId(UUID.fromString(tileMovement.getTileBoardId()));
+	        tilePlacement.setTileBagId(UUID.fromString(tileMovement.getTileBagId()));
 	        tilePlacement.setTileId(UUID.fromString(tileMovement.getTileId()));
 	        tilePlacement.setLastMovedById(tileMovement.getTileUserId());
-	        tilePlacement.setLastUpdatedTime(tileMovement.getTileTimestamp());
+	        tilePlacement.setLastUpdatedTime(Calendar.getInstance().getTimeInMillis());
 	        tilePlacement.setX(tileMovement.getTileX());
 	        tilePlacement.setY(tileMovement.getTileY());
 	        tilePlacement.setZ(tileMovement.getTileZ());

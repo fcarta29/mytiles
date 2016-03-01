@@ -3,7 +3,7 @@ package com.byteknowledge.mytiles.model;
 import java.io.Serializable;
 import java.util.UUID;
 
-public abstract class UUIDEntity implements Serializable {
+public abstract class AbstractUUIDEntity implements Serializable {
 
     private static final long serialVersionUID = -4162331222292644386L;
 
@@ -33,7 +33,7 @@ public abstract class UUIDEntity implements Serializable {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        UUIDEntity other = (UUIDEntity) obj;
+        AbstractUUIDEntity other = (AbstractUUIDEntity) obj;
         if (id == null) {
             if (other.id != null)
                 return false;
@@ -44,6 +44,6 @@ public abstract class UUIDEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "UUIDEntity [id=" + id + "]";
+        return "AbstractUUIDEntity [id=" + id + "]";
     }
 }
