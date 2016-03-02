@@ -1,5 +1,9 @@
 package com.byteknowledge.mytiles.data.dao;
 
+import java.text.MessageFormat;
+import java.util.Set;
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -13,6 +17,9 @@ import com.byteknowledge.mytiles.model.TileBoard;
 public class TileBoardDaoRedis extends AbstractDaoRedis<TileBoard> implements TileBoardDao {
 
     private static final String OBJECT_KEY = "TileBoard";
+    private static final String TILEBOARD_CREATOR_INDEX_KEY = "TileBoard:Creator:{0}";
+    private static final String TILEBOARD_OWNER_INDEX_KEY = "TileBoard:Owner:{0}";
+    private static final String TILEBOARD_PARTICIPANT_INDEX_KEY = "TileBoard:Participant:{0}";
     
     @Bean(name="tileBoardRedisTemplate")
     public RedisTemplate<String,TileBoard> redisTemplate() {
@@ -28,4 +35,33 @@ public class TileBoardDaoRedis extends AbstractDaoRedis<TileBoard> implements Ti
         return OBJECT_KEY;
     }
     
+    protected void setIndexes(final TileBoard tileBoard) {
+    	// Override to set custom keys for lookup
+    	getRedisTemplate().opsForSet().add(MessageFormat.format(TILEBOARD_CREATOR_INDEX_KEY,tileBoard.getCreatorId()), 
+    			tileBoard);
+    	getRedisTemplate().opsForSet().add(MessageFormat.format(TILEBOARD_OWNER_INDEX_KEY,tileBoard.getOwnerId()), 
+    			tileBoard);
+    	for (final UUID participant : tileBoard.getParticipantIds()) {
+    		getRedisTemplate().opsForSet().add(MessageFormat.format(TILEBOARD_PARTICIPANT_INDEX_KEY,participant), 
+    				tileBoard);
+    	}
+    }
+
+	public Set<TileBoard> getTileBoardsByCreator(final UUID creatorId) {
+		return getRedisTemplate().opsForSet().members(MessageFormat.format(TILEBOARD_CREATOR_INDEX_KEY,creatorId));
+	}    
+    
+	public Set<TileBoard> getTileBoardsByOwner(final UUID ownerId) {
+		return getRedisTemplate().opsForSet().members(MessageFormat.format(TILEBOARD_OWNER_INDEX_KEY,ownerId));
+	}
+	
+	public Set<TileBoard> getTileBoardsByParticipant(final UUID participantId) {
+		return getRedisTemplate().opsForSet().members(
+				MessageFormat.format(TILEBOARD_PARTICIPANT_INDEX_KEY,participantId));
+	}
+	
+	public Set<TileBoard> getTileBoardsByOwnerOrParticipant(final UUID userId) {
+		return getRedisTemplate().opsForSet().union(MessageFormat.format(TILEBOARD_OWNER_INDEX_KEY,userId), 
+				MessageFormat.format(TILEBOARD_PARTICIPANT_INDEX_KEY,userId));
+	}
 }

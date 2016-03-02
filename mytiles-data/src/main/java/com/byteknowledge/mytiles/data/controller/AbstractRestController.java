@@ -3,27 +3,32 @@ package com.byteknowledge.mytiles.data.controller;
 import java.util.Collection;
 import java.util.UUID;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.byteknowledge.mytiles.dao.Dao;
-import com.byteknowledge.mytiles.model.UUIDEntity;
+import com.byteknowledge.mytiles.model.AbstractUUIDEntity;
 
-public abstract class AbstractRestController<E extends UUIDEntity> {
+@RestController
+@CrossOrigin(origins = "http://localhost:8080")
+public abstract class AbstractRestController<E extends AbstractUUIDEntity> {
 
 	protected abstract Dao<E> getDao();
 	
 	protected abstract void merge(final E persitedEntity, final E newEntity);
 	
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
-    public Collection<E> getList() {
+    public @ResponseBody Collection<E> getList() {
     	return getDao().list();
     }
     
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/json")
-    public E get(@PathVariable("id") final UUID id) {
+    public @ResponseBody E get(@PathVariable("id") final UUID id) {
     	return getDao().get(id);
     }
     

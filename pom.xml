@@ -36,6 +36,8 @@
         <!-- Apache Commons -->
         <apache-common-lang-version>3.4</apache-common-lang-version>
         <apache-commons-collections-version>4.0</apache-commons-collections-version>
+        <!-- Apache Tiles -->
+        <apache-tiles-version>3.0.5</apache-tiles-version>
 
         <!-- Logging -->
         <log4j-version>2.2</log4j-version>
@@ -103,6 +105,13 @@
 			    <version>${apache-commons-collections-version}</version>
 			</dependency>
 
+            <!-- Apache Tiles -->
+            <dependency>
+                <groupId>org.apache.tiles</groupId>
+                <artifactId>tiles-extras</artifactId>
+                <version>${apache-tiles-version}</version>
+            </dependency>
+
 			<!-- Testing -->
 			<dependency>
 				<groupId>com.jayway.restassured</groupId>
@@ -131,7 +140,7 @@
 			    <artifactId>springfox-swagger-ui</artifactId>
 			    <version>${io-springfox-swagger}</version>
 			</dependency>	
-
+			
         </dependencies>
     </dependencyManagement>
 

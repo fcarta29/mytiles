@@ -1,9 +1,6 @@
 package com.byteknowledge.mytiles.model;
 
-import java.io.Serializable;
-
-
-public class User extends UUIDEntity implements Serializable {
+public class User extends AbstractUUIDEntity {
     
     private static final long serialVersionUID = 6040581995653117204L;
 
@@ -59,9 +56,9 @@ public class User extends UUIDEntity implements Serializable {
         } else if (!getId().equals(other.getId()))
             return false;
         if (userName == null) {
-            if (other.userName != null)
+            if (other.getUserName() != null)
                 return false;
-        } else if (!userName.equals(other.userName))
+        } else if (!userName.equals(other.getUserName()))
             return false;
         return true;
     }

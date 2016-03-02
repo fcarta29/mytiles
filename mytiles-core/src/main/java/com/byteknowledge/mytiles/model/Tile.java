@@ -1,9 +1,8 @@
 package com.byteknowledge.mytiles.model;
 
-import java.io.Serializable;
 import java.util.UUID;
 
-public class Tile extends UUIDEntity implements Serializable {
+public class Tile extends AbstractUUIDEntity {
 
     private static final long serialVersionUID = 6427325005290619328L;
 

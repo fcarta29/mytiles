@@ -1,18 +1,17 @@
 package com.byteknowledge.mytiles.model;
 
-import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
-public class TileBag extends UUIDEntity implements Serializable {
+public class TileBag extends AbstractUUIDEntity {
 
     private static final long serialVersionUID = -3873513545261620269L;
 
     private UUID creatorId;
     private Long createdTime;
     private String name;
-    private Set<Tile> tiles = new HashSet<Tile>();
+    private List<UUID> tiles = new ArrayList<UUID>();
 
     public UUID getCreatorId() {
         return creatorId;
@@ -38,21 +37,21 @@ public class TileBag extends UUIDEntity implements Serializable {
         this.name = name;
     }
 
-    public Set<Tile> getTiles() {
+    public List<UUID> getTiles() {
         return tiles;
     }
 
-    public void setTiles(Set<Tile> tiles) {
+    public void setTiles(List<UUID> tiles) {
         this.tiles = tiles;
     }
     
 	public TileBag addTile(final Tile newTile) {
-		tiles.add(newTile);
+		tiles.add(newTile.getId());
     	return this;
 	}
 	
 	public TileBag removeTile(final Tile removeTile) {
-    	tiles.remove(removeTile);
+    	tiles.remove(removeTile.getId());
     	return this;
 	}
 
