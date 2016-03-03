@@ -65,8 +65,8 @@ public class MyTilesDataApplication {
         tileBag.setCreatorId(user.getId());
         tileBag.setCreatedTime(Calendar.getInstance().getTimeInMillis());
         tileBag.setName("Happy FunTimes Bag - Halarious words");
-        tileBag.getTiles().add(tile1);
-        tileBag.getTiles().add(tile2);
+        tileBag.addTile(tile1);
+        tileBag.addTile(tile2);
         tileBagDao.save(tileBag);
         
         final TileBoardDao tileBoardDao = (TileBoardDao) ctx.getBean("tileBoardDao");
@@ -77,8 +77,8 @@ public class MyTilesDataApplication {
         tileBoard.setOwnerId(user.getId());
         tileBoard.setTileBagId(tileBag.getId());
         tileBoard.setName("Funny things board.");
-        tileBoard.getParticipantIds().add(user);
-        tileBoard.getParticipantIds().add(user2);
+        tileBoard.addParticipant(user);
+        tileBoard.addParticipant(user2);
         tileBoardDao.save(tileBoard);
         
         LOG.debug(userDao.get(UUID.fromString(Service.USER1_ID)));

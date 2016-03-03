@@ -1,46 +1,54 @@
 package com.byteknowledge.mytiles.dto;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+
+import com.byteknowledge.mytiles.dto.TileBagDto.TileBagBuilder;
+import com.byteknowledge.mytiles.dto.UserDto.UserBuilder;
 
 public class TileBoardDto extends UUIDDto implements Serializable {
 
     private static final long serialVersionUID = -5612894327383415628L;
 
-    private final String creatorId;
-    private final String ownerId;
-    private final String tileBagId;
-    private final Set<UserDto> participantIds;
+    private final UserDto creator;
+    private final UserDto owner;
+    private final TileBagDto tileBag;
+    private final Set<UserDto> participants;
     private final String name;
     private final String createdTime;
     private final String lastUpdatedTime;
 
     private TileBoardDto(final TileBoardBuilder builder) {
         super(builder.id);
-        this.creatorId = builder.creatorId;
-        this.ownerId = builder.ownerId;
-        this.tileBagId = builder.tileBagId;
-        this.participantIds = builder.participantIds;
+        this.creator = builder.creatorBuilder.build();
+        this.owner = builder.ownerBuilder.build();
+        this.tileBag = builder.tileBagBuilder.build();
+        this.participants = new HashSet<UserDto>();
+        for (final UserBuilder participantBuilder : builder.participantBuilders) {
+        	this.participants.add(participantBuilder.build());
+        }
         this.name = builder.name;
         this.createdTime = builder.createdTime;
         this.lastUpdatedTime = builder.lastUpdatedTime;
     }
     
-    public String getCreatorId() {
-        return creatorId;
+    public UserDto getCreator() {
+        return creator;
     }
 
-    public String getOwnerId() {
-        return ownerId;
+    public UserDto getOwner() {
+        return owner;
     }
 
-    public String getTileBagId() {
-        return tileBagId;
+    public TileBagDto getTileBag() {
+        return tileBag;
     }
 
-    public Set<UserDto> getParticipantIds() {
-        return participantIds;
+    public Set<UserDto> getParticipants() {
+        return participants;
     }
 
     public String getName() {
@@ -57,37 +65,34 @@ public class TileBoardDto extends UUIDDto implements Serializable {
 
     public static final class TileBoardBuilder {
         
-        private final String creatorId;
+    	private final UserBuilder creatorBuilder;
+    	private final UserBuilder ownerBuilder;
         private final String name;
+        
         private String id;
-        private String ownerId;
-        private String tileBagId;
-        private Set<UserDto> participantIds = new HashSet<UserDto>();
+        private TileBagBuilder tileBagBuilder;
+        private List<UserBuilder> participantBuilders = new ArrayList<UserBuilder>();
         private String createdTime;
         private String lastUpdatedTime;        
         
-        public TileBoardBuilder(final String creatorId, final String name) {
-            this.creatorId = creatorId;
+        public TileBoardBuilder(final UserBuilder creatorBuilder, final UserBuilder ownerBuilder, final String name) {
+            this.creatorBuilder = creatorBuilder;
+            this.ownerBuilder = ownerBuilder;
             this.name = name;
         }
         
         public TileBoardBuilder setId(final String id) {
             this.id = id;
             return this;
-        }            
+        }     
         
-        public TileBoardBuilder setOwnerId(final String ownerId) {
-            this.ownerId = ownerId;
-            return this;
-        } 
+        public TileBoardBuilder setTileBag(final TileBagBuilder tileBagBuilder) {
+        	this.tileBagBuilder = tileBagBuilder;        	
+        	return this;
+        }
         
-        public TileBoardBuilder setTileBagId(final String tileBagId) {
-            this.tileBagId = tileBagId;
-            return this;
-        }         
-        
-        public TileBoardBuilder addParticipant(final UserDto participant) {
-            this.participantIds.add(participant);
+        public TileBoardBuilder addParticipant(final UserBuilder participantBuilder) {
+            this.participantBuilders.add(participantBuilder);
             return this;
         }
                 
@@ -105,49 +110,58 @@ public class TileBoardDto extends UUIDDto implements Serializable {
             return new TileBoardDto(this);
         }        
     }
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((creator == null) ? 0 : creator.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((owner == null) ? 0 : owner.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (!super.equals(obj)) {
+			return false;
+		}
+		if (!(obj instanceof TileBoardDto)) {
+			return false;
+		}
+		TileBoardDto other = (TileBoardDto) obj;
+		if (creator == null) {
+			if (other.creator != null) {
+				return false;
+			}
+		} else if (!creator.equals(other.creator)) {
+			return false;
+		}
+		if (name == null) {
+			if (other.name != null) {
+				return false;
+			}
+		} else if (!name.equals(other.name)) {
+			return false;
+		}
+		if (owner == null) {
+			if (other.owner != null) {
+				return false;
+			}
+		} else if (!owner.equals(other.owner)) {
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "TileBoardDto [creator=" + creator + ", owner=" + owner + ", tileBag=" + tileBag + ", participants="
+				+ participants + ", name=" + name + ", createdTime=" + createdTime + ", lastUpdatedTime="
+				+ lastUpdatedTime + ", id=" + id + "]";
+	}
     
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((creatorId == null) ? 0 : creatorId.hashCode());
-        result = prime * result + ((name == null) ? 0 : name.hashCode());
-        return result;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (!(obj instanceof TileBoardDto)) {
-            return false;
-        }
-        TileBoardDto other = (TileBoardDto) obj;
-        if (creatorId == null) {
-            if (other.creatorId != null) {
-                return false;
-            }
-        } else if (!creatorId.equals(other.creatorId)) {
-            return false;
-        }
-        if (name == null) {
-            if (other.name != null) {
-                return false;
-            }
-        } else if (!name.equals(other.name)) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "TileBoard [id=" + getId() + ", creatorId=" + creatorId + ", ownerId=" + ownerId + ", tileBagId=" + tileBagId
-                + ", participantIds=" + participantIds + ", name=" + name + ", createdTime=" + createdTime
-                + ", lastUpdatedTime=" + lastUpdatedTime + "]";
-    }
 }
