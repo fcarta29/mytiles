@@ -1,15 +1,16 @@
 package com.byteknowledge.mytiles.web.controllers;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class HomeController {
 
-	@RequestMapping("/home")
-	public ModelAndView home() {
- 
-		return new ModelAndView("home");
+	@RequestMapping(value = {"/","/home"}, method = RequestMethod.GET )
+	public String home(Model model) {
+		model.addAttribute("title", "MyTiles | Home");
+		return "home";
 	}
 }
