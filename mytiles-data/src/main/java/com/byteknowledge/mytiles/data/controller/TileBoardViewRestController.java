@@ -3,7 +3,6 @@ package com.byteknowledge.mytiles.data.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.UUID;
 
 import org.apache.log4j.Logger;
@@ -63,11 +62,14 @@ public class TileBoardViewRestController {
     	final List<User> participants = userDao.getList(tileBoard.getParticipantIds());
     	final TileBag tileBag = tileBagDao.get(tileBoard.getTileBagId());
     	final List<Tile> tiles = tileDao.getList(tileBag.getTiles());
-    	final Set<TilePlacement> tilePlacements = tilePlacementDao.get(tileBoardId, tileBag.getId());
+    	final List<TilePlacement> tilePlacements = tilePlacementDao.list(tileBoardId, tileBag.getId());
     	final Map<UUID,TilePlacement> tilePlacementMap = new HashMap<UUID,TilePlacement>();
+    	LOG.info("tilePlacement in before map");
     	for (final TilePlacement tilePlacement : tilePlacements) {
     		tilePlacementMap.put(tilePlacement.getTileId(), tilePlacement);
+    		LOG.info("tp in map: " + tilePlacement.getTileId() + " tp:" + tilePlacement);
     	}
+    	LOG.info("tilePlacement in after map");
     	
     	LOG.info("tileBoard: " + tileBoard);
     	LOG.info("creator: " + creator);
@@ -93,10 +95,13 @@ public class TileBoardViewRestController {
     			.setId(tileBag.getId().toString())
     			.setCreatedTime(tileBag.getCreatedTime().toString());
     	for (final Tile tile : tiles) {
+    		LOG.info("In loop tile: " + tile.getId());
     		TilePlacement tilePlacement = tilePlacementMap.get(tile.getId());
+    		LOG.info("In loop tilePlacement: " + tilePlacement);
     		// check this incase the tile has never been moved
     		if (tilePlacement == null) {
     			tilePlacement = new TilePlacement();
+    			LOG.info("In new loop tilePlacement: " + tilePlacement);
     		}
     		tileBagBuilder.addTile(new TileBuilder(tile.getLabel())
     				.setId(tile.getId().toString())

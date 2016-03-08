@@ -31,16 +31,39 @@ public abstract class AbstractDaoRedis<E extends AbstractUUIDEntity> implements 
     
     public abstract String getObjectKey();
     
-    protected RedisTemplate<String,E> getRedisTemplate() {
+    /**
+     * NOTE[fcarta] - RedisTemplate is only able to contain one instance of XxxValueSerializer therefore we have to 
+     * init the RedisTemplate here and add the following in each extending class 
+     * 
+     *    @Bean(name="tileRedisTemplate")
+	 *    public RedisTemplate<String,Tile> redisTemplate() {
+ 	 *        return initRedisTemplate();
+	 *    }    
+	 *    
+	 *    @Autowired
+	 *    @Qualifier("tileRedisTemplate")
+	 *    private RedisTemplate<String,Tile> redisTemplate = new RedisTemplate<String,Tile>();
+     * 
+     *    @Override
+     *    public RedisTemplate<String,Tile> getRedisTemplate() {
+     *    	return redisTemplate;
+     *    }     
+     * 
+     * 
+     * @return
+     */
+    protected RedisTemplate<String,E> initRedisTemplate() {
         final RedisTemplate<String,E> redisTemplate = new RedisTemplate<String,E>();
         redisTemplate.setConnectionFactory(jedisConnectionFactory);
-        redisTemplate.setEnableTransactionSupport(true);
+        // NOTE[fcarta] - TX seem to perform really poorly disabling for now
+        //redisTemplate.setEnableTransactionSupport(true);
         redisTemplate.setKeySerializer(new StringRedisSerializer());
         redisTemplate.setHashValueSerializer(new Jackson2JsonRedisSerializer<E>(typeOfEntity));
-        redisTemplate.setValueSerializer(new Jackson2JsonRedisSerializer<E>(typeOfEntity));       
         redisTemplate.afterPropertiesSet();
         return redisTemplate;
     }
+    
+    public abstract RedisTemplate<String,E> getRedisTemplate();
 
     @SuppressWarnings("unchecked")
     public E get(final UUID id) {

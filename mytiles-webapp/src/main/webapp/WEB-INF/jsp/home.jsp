@@ -75,8 +75,8 @@
             </div>
             <div class="page-header">    
 			    <div id="tileBoardDiv" style="width:100%; height:800px;">
-				    <span id="draggable359ac820-029f-11e5-b939-0800200c9a66" class="label label-primary ui-widget-content" style="font-size:20px;">Funny Word</span>
-				    <span id="draggable468dc560-029f-11e5-b939-0800200c9a66" class="label label-primary ui-widget-content" style="font-size:20px;">Halarious Word</span>
+				    <span id="draggable8863c47b-a7e0-4f42-8689-3432106f15cc" class="label label-primary ui-widget-content" style="font-size:20px;">Funny Word</span>
+				    <span id="draggabledb442fda-cf92-4787-a776-74cac38800be" class="label label-primary ui-widget-content" style="font-size:20px;">Halarious Word</span>
 			    </div>
 			    
 			    <div id="conversationDiv">
@@ -103,44 +103,44 @@
 	        
 	        $(function() {
 	            $('#conversationDiv').hide();
-	            $( "#draggable359ac820-029f-11e5-b939-0800200c9a66" ).hide();
-	            $( "#draggable468dc560-029f-11e5-b939-0800200c9a66" ).hide();
+	            $( "#draggable8863c47b-a7e0-4f42-8689-3432106f15cc" ).hide();
+	            $( "#draggabledb442fda-cf92-4787-a776-74cac38800be" ).hide();
 	            
-	            $("#draggable359ac820-029f-11e5-b939-0800200c9a66").draggable({
+	            $("#draggable8863c47b-a7e0-4f42-8689-3432106f15cc").draggable({
 	            	containment: "parent",
 	            	opacity: 0.35,
 	            	revert: function (droppable) {
-	            	    return droppable && $("#draggable359ac820-029f-11e5-b939-0800200c9a66").addClass('ui-draggable-reverted');
+	            	    return droppable && $("#draggable8863c47b-a7e0-4f42-8689-3432106f15cc").addClass('ui-draggable-reverted');
 	            	},
 	                stop: function (event,ui) {
-	                	if ($("#draggable359ac820-029f-11e5-b939-0800200c9a66").hasClass('ui-draggable-reverted')) {
-	                		$("#draggable359ac820-029f-11e5-b939-0800200c9a66").removeClass('ui-draggable-reverted');
+	                	if ($("#draggable8863c47b-a7e0-4f42-8689-3432106f15cc").hasClass('ui-draggable-reverted')) {
+	                		$("#draggable8863c47b-a7e0-4f42-8689-3432106f15cc").removeClass('ui-draggable-reverted');
 	                	} else {
-	                	   sendTileMovement("359ac820-029f-11e5-b939-0800200c9a66",ui);
+	                	   sendTileMovement("8863c47b-a7e0-4f42-8689-3432106f15cc",ui);
 	                	}
 	                }   
 	            });
-				$("#draggable359ac820-029f-11e5-b939-0800200c9a66").droppable({
+				$("#draggable8863c47b-a7e0-4f42-8689-3432106f15cc").droppable({
 				    greedy: true,
 				    tolerance: 'touch',
 				 });
 	            
-	            $("#draggable468dc560-029f-11e5-b939-0800200c9a66").draggable({
+	            $("#draggabledb442fda-cf92-4787-a776-74cac38800be").draggable({
 	            	containment: "parent",
 	            	opacity: 0.35,
                     revert: function (droppable) {
-                        return droppable && $("#draggable468dc560-029f-11e5-b939-0800200c9a66").addClass('ui-draggable-reverted');
+                        return droppable && $("#draggabledb442fda-cf92-4787-a776-74cac38800be").addClass('ui-draggable-reverted');
                     },
 	                stop: function (event,ui) {
-	                    if ($("#draggable468dc560-029f-11e5-b939-0800200c9a66").hasClass('ui-draggable-reverted')) {
-	                        $("#draggable468dc560-029f-11e5-b939-0800200c9a66").removeClass('ui-draggable-reverted');
+	                    if ($("#draggabledb442fda-cf92-4787-a776-74cac38800be").hasClass('ui-draggable-reverted')) {
+	                        $("#draggabledb442fda-cf92-4787-a776-74cac38800be").removeClass('ui-draggable-reverted');
 	                    } else {
-	                    	sendTileMovement("468dc560-029f-11e5-b939-0800200c9a66",ui);
+	                    	sendTileMovement("db442fda-cf92-4787-a776-74cac38800be",ui);
 	                    }
 	                         
 	                }
 	            });
-                $("#draggable468dc560-029f-11e5-b939-0800200c9a66").droppable({
+                $("#draggabledb442fda-cf92-4787-a776-74cac38800be").droppable({
                     greedy: true,
                     tolerance: 'touch',
                  });	            
@@ -180,8 +180,8 @@
 	            $('#name').prop('disabled',connected);
 	            if (connected) {
 	                $('#conversationDiv').show();
-	                $( "#draggable359ac820-029f-11e5-b939-0800200c9a66" ).show();
-	                $( "#draggable468dc560-029f-11e5-b939-0800200c9a66" ).show();
+	                $( "#draggable8863c47b-a7e0-4f42-8689-3432106f15cc" ).show();
+	                $( "#draggabledb442fda-cf92-4787-a776-74cac38800be" ).show();
 	                
 	                $.get("http://localhost:9080/tileplacements/tileboard/07270496-d622-4351-a4df-d4f28b31fe5c/tilebag/7194d3ea-b2be-4e1f-b606-8d5867bb5a34", function(placements) {
 	                    console.log('Getting current tile placements');
@@ -193,8 +193,8 @@
 	                });
 	            } else {
 	                $('#conversationDiv').hide();
-	                $( "#draggable359ac820-029f-11e5-b939-0800200c9a66" ).hide();
-	                $( "#draggable468dc560-029f-11e5-b939-0800200c9a66" ).hide();
+	                $( "#draggable8863c47b-a7e0-4f42-8689-3432106f15cc" ).hide();
+	                $( "#draggabledb442fda-cf92-4787-a776-74cac38800be" ).hide();
 	            }
 	            $('#response').html('');            
 	        }
