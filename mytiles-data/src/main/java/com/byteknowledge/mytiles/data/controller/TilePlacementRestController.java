@@ -1,7 +1,7 @@
 package com.byteknowledge.mytiles.data.controller;
 
 import java.util.Calendar;
-import java.util.Set;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +26,9 @@ public class TilePlacementRestController {
 
     @RequestMapping(value = "/tileboard/{tileBoardId}/tilebag/{tileBagId}", method = RequestMethod.GET, 
     		produces = "application/json")
-    public @ResponseBody Set<TilePlacement> get(@PathVariable("tileBoardId") final UUID tileBoardId,
+    public @ResponseBody List<TilePlacement> get(@PathVariable("tileBoardId") final UUID tileBoardId,
     		@PathVariable("tileBagId") final UUID tileBagId) {
-    	return tilePlacementDao.get(tileBoardId, tileBagId);
+    	return tilePlacementDao.list(tileBoardId, tileBagId);
     }
     
     @RequestMapping(value = "/tileboard/{tileBoardId}/tilebag/{tileBagId}", method = RequestMethod.POST, 

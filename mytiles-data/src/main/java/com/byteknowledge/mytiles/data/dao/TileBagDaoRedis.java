@@ -16,7 +16,7 @@ public class TileBagDaoRedis extends AbstractDaoRedis<TileBag> implements TileBa
     
     @Bean(name="tileBagRedisTemplate")
     public RedisTemplate<String,TileBag> redisTemplate() {
-        return getRedisTemplate();
+        return initRedisTemplate();
     }    
     
     @Autowired
@@ -26,5 +26,10 @@ public class TileBagDaoRedis extends AbstractDaoRedis<TileBag> implements TileBa
     @Override
     public String getObjectKey() {
         return OBJECT_KEY;
+    }
+    
+    @Override
+    public RedisTemplate<String,TileBag> getRedisTemplate() {
+    	return redisTemplate;
     }
 }

@@ -32,7 +32,7 @@
   1. Start redis 
     * Start reds from reds home dir
       * under src/
-      * ./redis-server
+      * ./redis-server <path-to-redis-config>/redis.conf
     * (Optional) start up redis cli
       * under src/
       * ./redis-cli
