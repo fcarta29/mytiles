@@ -1,3 +1,5 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -8,13 +10,16 @@
                     class="icon-bar"></span> <span class="icon-bar"></span> <span
                     class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">MyTiles</a>
+            <a class="navbar-brand" href="/">MyTiles</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
+        ${model.menu.menuItem}sdfsf
+        <c:out value="${menu.menuItem}" />ssgfdgfd
+        <c:out value="${model.menu.menuItem}" />ssgfdgfd
             <ul class="nav navbar-nav">
-                <li class="active"><a href="/home">Home</a></li>
-                <li><a href="/about">About</a></li>
-                <li><a href="/contact">Contact</a></li>
+                <li class="${menu.menuItem == 'home' ? 'active' : ''}"><a href="/home">Home</a></li>
+                <li class="${menu.menuItem == 'about' ? 'active' : ''}"><a href="/about">About</a></li>
+                <li class="${menu.menuItem == 'contact' ? 'active' : ''}"><a href="/contact">Contact</a></li>
                 <li class="dropdown"><a href="#" class="dropdown-toggle"
                     data-toggle="dropdown" role="button" aria-haspopup="true"
                     aria-expanded="false">Settings <span class="caret"></span></a>

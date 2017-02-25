@@ -6,16 +6,27 @@
 <tiles-definitions>
     <definition name="base.definition" template="/WEB-INF/jsp/layouts/main.jsp">
         <put-attribute name="title" value="MyTiles"></put-attribute>
-        <put-attribute name="style" type="template" value="/WEB-INF/jsp/views/common/style.jsp"></put-attribute>
-        <put-attribute name="header" type="template" value="/WEB-INF/jsp/views/common/header.jsp"></put-attribute>
-        <put-attribute name="menu" type="template" value="/WEB-INF/jsp/views/common/menu.jsp"></put-attribute>
-        <put-attribute name="body" type="template" value=""></put-attribute>
-        <put-attribute name="footer" type="template" value="/WEB-INF/jsp/views/common/footer.jsp"></put-attribute>
-        <put-attribute name="script" type="template" value="/WEB-INF/jsp/views/common/script.jsp"></put-attribute>
+        <put-attribute name="style" value="/WEB-INF/jsp/views/common/style.jsp"></put-attribute>
+        <put-attribute name="header" value="/WEB-INF/jsp/views/common/header.jsp"></put-attribute>
+        <put-attribute name="menu" value="/WEB-INF/jsp/views/common/menu.jsp"></put-attribute>
+        <put-attribute name="body" value=""></put-attribute>
+        <put-attribute name="footer" value="/WEB-INF/jsp/views/common/footer.jsp"></put-attribute>
+        <put-attribute name="script" value=""></put-attribute>
     </definition>
     
     <definition name="home" extends="base.definition">
         <put-attribute name="title" value="MyTiles | Home" />  
-        <put-attribute name="body" type="template" value="/WEB-INF/jsp/views/home/body.jsp"></put-attribute>
+        <put-attribute name="body" value="/WEB-INF/jsp/views/home/body.jsp"></put-attribute>
+        <put-attribute name="script" value="/WEB-INF/jsp/views/home/script.jsp"></put-attribute>
+    </definition>
+    
+    <definition name="about" extends="base.definition">
+        <put-attribute name="title" value="MyTiles | About" />  
+        <put-attribute name="body" value="/WEB-INF/jsp/views/about/body.jsp"></put-attribute>
+    </definition>
+    
+    <definition name="contact" extends="base.definition">
+        <put-attribute name="title" value="MyTiles | Contact" />  
+        <put-attribute name="body" value="/WEB-INF/jsp/views/contact/body.jsp"></put-attribute>
     </definition>
 </tiles-definitions>

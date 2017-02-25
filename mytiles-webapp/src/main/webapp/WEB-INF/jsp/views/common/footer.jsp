@@ -1,7 +1,15 @@
-<div id="about" class="page-header">
-    <h1>About info here</h1>
-</div>
+<div id="footer">
+	<ul class="bottom">
+		<li><a href="http://www.caucho.com/">HOME</a> |
+		<li><a href="http://www.caucho.com/about/contact/">CONTACT US</a>
+			|
+		<li><a href="http://www.caucho.com/resin-4.0/">DOCUMENTATION</a>
+			|
+		<li><a href="http://blog.caucho.com/">BLOG</a> |
+		<li><a href="http://wiki.caucho.com/">WIKI</a>
+	</ul>
 
-<div id="contact" class="page-header">
-    <h1>Contact info here</h1>
+	<div>
+		Copyright (c) 2010-2016 ByteKnowledge,LLC All rights reserved.
+	</div>
 </div>

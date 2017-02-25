@@ -11,14 +11,13 @@
 		</span>
 	</div>
 	<div class="page-header">
-		<div id="tileBoardDiv" style="width: 100%; height: 800px;">
+	${menu.menuItem}sdfsdfg
+		<div id="tileBoardDiv" class="jumbotron tileboard">
 			<span id="draggable8863c47b-a7e0-4f42-8689-3432106f15cc"
-				class="label label-primary ui-widget-content"
-				style="font-size: 20px;">Funny Word</span> 
+				class="tile ui-widget-content">Funny Word</span> 
 			<span
 				id="draggabledb442fda-cf92-4787-a776-74cac38800be"
-				class="label label-primary ui-widget-content"
-				style="font-size: 20px;">Halarious Word</span>
+				class="tile ui-widget-content">Halarious Word</span>
 		</div>
 
 		<div id="conversationDiv">
@@ -26,3 +25,4 @@
 		</div>
 	</div>
 </div>
+

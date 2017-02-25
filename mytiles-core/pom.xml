@@ -1,50 +1,18 @@
 <?xml version="1.0"?>
-<project
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
 	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<modelVersion>4.0.0</modelVersion>
-	
-	<parent>
-		<groupId>com.byteknowledge</groupId>
-		<artifactId>mytiles</artifactId>
-		<version>0.1.0-SNAPSHOT</version>
-	</parent>
-	
-	<artifactId>mytiles-core</artifactId>
-	<name>MyTiles - Core</name>
-	
-	<properties>
 
-	</properties>
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.byteknowledge.labs</groupId>
+        <artifactId>mytiles</artifactId>
+        <version>1.0</version>
+    </parent>
 
-    <profiles>
-        <!-- ================= Developer Profiles ================= -->
-        <profile>
-            <id>fcarta</id>
-            <activation>
-                <property>
-                    <name>env.USER</name>
-                    <value>fcarta</value>
-                </property>
-            </activation>
-            <properties>
-
-            </properties>
-        </profile>
-
-        <profile>
-            <id>awerhane</id>
-            <activation>
-                <property>
-                    <name>env.USER</name>
-                    <value>awerhane</value>
-                </property>
-            </activation>
-            <properties>
-
-            </properties>
-        </profile>
-    </profiles>
+    <groupId>com.byteknowledge.labs.mytiles</groupId>
+    <artifactId>mytiles-core</artifactId>
+    <version>${project.parent.version}</version>
+    <name>MyTiles - Core (Shared components)</name>
 
     <dependencies>
         <dependency>
@@ -54,7 +22,10 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-collections4</artifactId>
-        </dependency>       
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+        </dependency>
     </dependencies>
-
 </project>

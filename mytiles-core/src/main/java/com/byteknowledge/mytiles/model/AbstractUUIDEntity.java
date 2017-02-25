@@ -3,6 +3,8 @@ package com.byteknowledge.mytiles.model;
 import java.io.Serializable;
 import java.util.UUID;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 public abstract class AbstractUUIDEntity implements Serializable {
 
     private static final long serialVersionUID = -4162331222292644386L;
@@ -26,24 +28,29 @@ public abstract class AbstractUUIDEntity implements Serializable {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
+    public boolean equals(final Object obj) {
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
-        AbstractUUIDEntity other = (AbstractUUIDEntity) obj;
+        }
+        final AbstractUUIDEntity other = (AbstractUUIDEntity) obj;
         if (id == null) {
-            if (other.id != null)
+            if (other.id != null) {
                 return false;
-        } else if (!id.equals(other.id))
+            }
+        } else if (!id.equals(other.id)) {
             return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "AbstractUUIDEntity [id=" + id + "]";
+        return ToStringBuilder.reflectionToString(this);
     }
 }

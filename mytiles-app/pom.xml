@@ -16,35 +16,6 @@
 	<properties>
 	</properties>
 
-	<profiles>
-		<!-- ================= Developer Profiles ================= -->
-		<profile>
-			<id>fcarta</id>
-			<activation>
-				<property>
-					<name>env.USER</name>
-					<value>fcarta</value>
-				</property>
-			</activation>
-			<properties>
-
-			</properties>
-		</profile>
-
-		<profile>
-			<id>awerhane</id>
-			<activation>
-				<property>
-					<name>env.USER</name>
-					<value>awerhane</value>
-				</property>
-			</activation>
-			<properties>
-
-			</properties>
-		</profile>
-	</profiles>
-
 	<dependencies>
         <dependency>
             <groupId>${project.parent.groupId}</groupId>

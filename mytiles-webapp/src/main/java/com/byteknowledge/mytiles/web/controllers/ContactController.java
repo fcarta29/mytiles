@@ -6,11 +6,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-public class HomeController extends AbstractController {
+public class ContactController extends AbstractController {
 
-	private static final String MENU_ITEM = "home";
+	private static final String MENU_ITEM = "contact";
 	
-	@RequestMapping(value = {"/","/home"}, method = RequestMethod.GET )
+	@RequestMapping(value = {"/contact"}, method = RequestMethod.GET )
 	public String home(Model model) {
 		model.addAttribute(MENU_ITEM_PARAM, MENU_ITEM);
 		return "home";
