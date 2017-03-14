@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 public class TileBag extends AbstractUUIDEntity {
 
     private static final long serialVersionUID = -3873513545261620269L;
@@ -94,8 +96,6 @@ public class TileBag extends AbstractUUIDEntity {
 
     @Override
     public String toString() {
-        return "TileBag [id=" + getId() + ", creatorId=" + creatorId + ", createdTime=" + createdTime + ", name=" + name
-                + ", tiles=" + tiles + "]";
+    	return ToStringBuilder.reflectionToString(this);
     }
-
 }

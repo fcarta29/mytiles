@@ -12,11 +12,11 @@
   <artifactId>mytiles-service</artifactId>
   <version>${project.parent.version}</version>
   <packaging>pom</packaging>
-  <name>MyTiles - Services</name>
+  <name>MyTiles - Service</name>
 
-  <!--modules>
-    <module>service-reservation</module>
-</modules-->
+  <modules>
+      <module>service-movement</module>
+  </modules>
 
     <prerequisites>
       <maven>3.2.5</maven>
@@ -25,7 +25,6 @@
   <dependencyManagement>
     <dependencies>
       <dependency>
-        <!-- groupId>${project.parent.groupId}</groupId> THIS DOESNT WORK FOR SOME REASON-->
         <groupId>com.byteknowledge.labs.mytiles</groupId>
         <artifactId>mytiles-core</artifactId>
         <version>${project.parent.version}</version>

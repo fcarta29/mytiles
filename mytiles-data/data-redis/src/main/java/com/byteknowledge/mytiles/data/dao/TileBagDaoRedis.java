@@ -21,7 +21,7 @@ public class TileBagDaoRedis extends AbstractDaoRedis<TileBag> implements TileBa
     
     @Autowired
     @Qualifier("tileBagRedisTemplate")
-    private RedisTemplate<String,TileBag> redisTemplate = new RedisTemplate<String,TileBag>();
+    private RedisTemplate<String,TileBag> redisTemplate;
     
     @Override
     public String getObjectKey() {

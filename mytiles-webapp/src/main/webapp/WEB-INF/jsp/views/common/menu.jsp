@@ -13,9 +13,9 @@
             <a class="navbar-brand" href="/">MyTiles</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
-        ${model.menu.menuItem}sdfsf
-        <c:out value="${menu.menuItem}" />ssgfdgfd
-        <c:out value="${model.menu.menuItem}" />ssgfdgfd
+        ${model.menu.menuItem}
+        <c:out value="${menu.menuItem}" />
+        <c:out value="${model.menu.menuItem}" />
             <ul class="nav navbar-nav">
                 <li class="${menu.menuItem == 'home' ? 'active' : ''}"><a href="/home">Home</a></li>
                 <li class="${menu.menuItem == 'about' ? 'active' : ''}"><a href="/about">About</a></li>

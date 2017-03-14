@@ -32,7 +32,7 @@ public class TilePlacementDaoRedis implements TilePlacementDao {
 
     @Autowired
     @Qualifier("tilePlacementRedisTemplate")
-    private RedisTemplate<String,TilePlacement> redisTemplate = new RedisTemplate<String,TilePlacement>();
+    private RedisTemplate<String,TilePlacement> redisTemplate;
 
     @Bean(name="tilePlacementRedisTemplate")
     protected RedisTemplate<String,TilePlacement> getRedisTemplate() {

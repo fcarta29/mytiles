@@ -1,12 +1,12 @@
-package com.byteknowledge.mytiles;
+package com.byteknowledge.mytiles.services.movement;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class MyTilesApplication {
+public class MyTilesMovementApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(MyTilesApplication.class, args); 
+        SpringApplication.run(MyTilesMovementApplication.class, args);
     }
 }

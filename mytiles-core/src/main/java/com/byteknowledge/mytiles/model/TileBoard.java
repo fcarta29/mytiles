@@ -5,6 +5,7 @@ import java.util.Set;
 import java.util.UUID;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 public class TileBoard extends AbstractUUIDEntity {
 
@@ -123,10 +124,6 @@ public class TileBoard extends AbstractUUIDEntity {
 
     @Override
     public String toString() {
-        return "TileBoard [id=" + getId() + ", creatorId=" + creatorId + ", ownerId=" + ownerId + ", tileBagId=" + tileBagId
-                + ", participantIds=" + participantIds + ", name=" + name + ", createdTime=" + createdTime
-                + ", lastUpdatedTime=" + lastUpdatedTime + "]";
+    	return ToStringBuilder.reflectionToString(this);
     }
-
-    
 }

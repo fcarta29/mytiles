@@ -1,5 +1,7 @@
 package com.byteknowledge.mytiles.model;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 public class User extends AbstractUUIDEntity {
     
     private static final long serialVersionUID = 6040581995653117204L;
@@ -65,8 +67,7 @@ public class User extends AbstractUUIDEntity {
 
     @Override
     public String toString() {
-        return "User [id=" + getId() + ", userName=" + userName + ", firstName=" + firstName + ", lastName="
-                + lastName + "]";
+        return ToStringBuilder.reflectionToString(this);
     }
 
 

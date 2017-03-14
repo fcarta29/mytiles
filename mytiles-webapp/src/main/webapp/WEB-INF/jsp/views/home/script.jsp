@@ -55,7 +55,7 @@
     });
 
     function connect() {
-        var socket = new SockJS('http://localhost:9090/mytiles/');
+        var socket = new SockJS('http://localhost:9080/mytiles/');
         stompClient = Stomp.over(socket);
         stompClient.connect({}, function(frame) {
             setConnected(true);

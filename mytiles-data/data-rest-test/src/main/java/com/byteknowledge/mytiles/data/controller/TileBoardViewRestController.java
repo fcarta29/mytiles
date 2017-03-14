@@ -37,92 +37,92 @@ import com.byteknowledge.mytiles.model.User;
 @RequestMapping("/tileboards/view")
 public class TileBoardViewRestController {
 
-	private static final Logger LOG = Logger.getLogger(TileBoardViewRestController.class); 
-	
-	@Autowired
-	private TileBoardDao tileBoardDao;
+    private static final Logger LOG = Logger.getLogger(TileBoardViewRestController.class);
 
-	@Autowired
-	private TileBagDao tileBagDao;
-	
-	@Autowired
-	private TileDao tileDao;
+    @Autowired
+    private TileBoardDao tileBoardDao;
 
-	@Autowired
-	private TilePlacementDao tilePlacementDao;
-	
-	@Autowired
-	private UserDao userDao;
-	
+    @Autowired
+    private TileBagDao tileBagDao;
+
+    @Autowired
+    private TileDao tileDao;
+
+    @Autowired
+    private TilePlacementDao tilePlacementDao;
+
+    @Autowired
+    private UserDao userDao;
+
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody TileBoardDto getTileBoardView(@PathVariable("id") final UUID tileBoardId) {
-    	final TileBoard tileBoard = tileBoardDao.get(tileBoardId);
-    	final User creator = userDao.get(tileBoard.getCreatorId());
-    	final User owner = userDao.get(tileBoard.getOwnerId());
-    	final List<User> participants = userDao.getList(tileBoard.getParticipantIds());
-    	final TileBag tileBag = tileBagDao.get(tileBoard.getTileBagId());
-    	final List<Tile> tiles = tileDao.getList(tileBag.getTiles());
-    	final List<TilePlacement> tilePlacements = tilePlacementDao.list(tileBoardId, tileBag.getId());
-    	final Map<UUID,TilePlacement> tilePlacementMap = new HashMap<UUID,TilePlacement>();
-    	LOG.info("tilePlacement in before map");
-    	for (final TilePlacement tilePlacement : tilePlacements) {
-    		tilePlacementMap.put(tilePlacement.getTileId(), tilePlacement);
-    		LOG.info("tp in map: " + tilePlacement.getTileId() + " tp:" + tilePlacement);
-    	}
-    	LOG.info("tilePlacement in after map");
-    	
-    	LOG.info("tileBoard: " + tileBoard);
-    	LOG.info("creator: " + creator);
-    	LOG.info("owner: " + owner);
-    	LOG.info("participants: " + participants);
-    	LOG.info("tileBag: " + tileBag);
-    	LOG.info("tiles: " + tiles);
-    	LOG.info("tilePlacements: " + tilePlacements);
-    	
-    	// build view object
-    	final TileBoardBuilder tileBoardBuilder = new TileBoardBuilder(
-    			new UserBuilder(creator.getUserName())
-    					.setId(creator.getId().toString())
-    					.setFirstName(creator.getFirstName())
-    					.setLastName(creator.getLastName()), 
-    			new UserBuilder(owner.getUserName())
-    					.setId(owner.getId().toString())
-    					.setFirstName(owner.getFirstName())
-    					.setLastName(owner.getLastName()),
-    			tileBoard.getName());
-    	// set tile bag
-    	final TileBagBuilder tileBagBuilder = new TileBagBuilder(tileBag.getName())
-    			.setId(tileBag.getId().toString())
-    			.setCreatedTime(tileBag.getCreatedTime().toString());
-    	for (final Tile tile : tiles) {
-    		LOG.info("In loop tile: " + tile.getId());
-    		TilePlacement tilePlacement = tilePlacementMap.get(tile.getId());
-    		LOG.info("In loop tilePlacement: " + tilePlacement);
-    		// check this incase the tile has never been moved
-    		if (tilePlacement == null) {
-    			tilePlacement = new TilePlacement();
-    			LOG.info("In new loop tilePlacement: " + tilePlacement);
-    		}
-    		tileBagBuilder.addTile(new TileBuilder(tile.getLabel())
-    				.setId(tile.getId().toString())
-    				.setCreatedTime(tile.getCreatedTime().toString())
-    				.setPlacement(new TilePlacementBuilder(
-    						new TileCoordinatesDto(tilePlacement.getX(),tilePlacement.getY(),tilePlacement.getZ()))
-    								.setlastUpdatedTime(tilePlacement.getLastUpdatedTime().toString())
-    								.setLastMovedById(tilePlacement.getLastMovedById())));
-    	}
-    	tileBoardBuilder.setTileBag(tileBagBuilder);
-    	// add all participants
-    	for (final User participant : participants) {
-    		tileBoardBuilder.addParticipant(new UserBuilder(participant.getUserName())
-    				.setId(participant.getId().toString())
-    				.setFirstName(participant.getFirstName())
-    				.setLastName(participant.getLastName()));
-    	}
-		tileBoardBuilder		
-				.setId(tileBoard.getId().toString())
-				.setCreatedTime(tileBoard.getCreatedTime().toString())
-				.setLastUpdatedTime(tileBoard.getLastUpdatedTime().toString());
-		return tileBoardBuilder.build();
+        final TileBoard tileBoard = tileBoardDao.get(tileBoardId);
+        final User creator = userDao.get(tileBoard.getCreatorId());
+        final User owner = userDao.get(tileBoard.getOwnerId());
+        final List<User> participants = userDao.getList(tileBoard.getParticipantIds());
+        final TileBag tileBag = tileBagDao.get(tileBoard.getTileBagId());
+        final List<Tile> tiles = tileDao.getList(tileBag.getTiles());
+        final List<TilePlacement> tilePlacements = tilePlacementDao.list(tileBoardId, tileBag.getId());
+        final Map<UUID,TilePlacement> tilePlacementMap = new HashMap<UUID,TilePlacement>();
+        LOG.info("tilePlacement in before map");
+        for (final TilePlacement tilePlacement : tilePlacements) {
+            tilePlacementMap.put(tilePlacement.getTileId(), tilePlacement);
+            LOG.info("tp in map: " + tilePlacement.getTileId() + " tp:" + tilePlacement);
+        }
+        LOG.info("tilePlacement in after map");
+
+        LOG.info("tileBoard: " + tileBoard);
+        LOG.info("creator: " + creator);
+        LOG.info("owner: " + owner);
+        LOG.info("participants: " + participants);
+        LOG.info("tileBag: " + tileBag);
+        LOG.info("tiles: " + tiles);
+        LOG.info("tilePlacements: " + tilePlacements);
+
+        // build view object
+        final TileBoardBuilder tileBoardBuilder = new TileBoardBuilder(
+                new UserBuilder(creator.getUserName())
+                        .setId(creator.getId().toString())
+                        .setFirstName(creator.getFirstName())
+                        .setLastName(creator.getLastName()),
+                new UserBuilder(owner.getUserName())
+                        .setId(owner.getId().toString())
+                        .setFirstName(owner.getFirstName())
+                        .setLastName(owner.getLastName()),
+                tileBoard.getName());
+        // set tile bag
+        final TileBagBuilder tileBagBuilder = new TileBagBuilder(tileBag.getName())
+                .setId(tileBag.getId().toString())
+                .setCreatedTime(tileBag.getCreatedTime().toString());
+        for (final Tile tile : tiles) {
+            LOG.info("In loop tile: " + tile.getId());
+            TilePlacement tilePlacement = tilePlacementMap.get(tile.getId());
+            LOG.info("In loop tilePlacement: " + tilePlacement);
+            // check this incase the tile has never been moved
+            if (tilePlacement == null) {
+                tilePlacement = new TilePlacement();
+                LOG.info("In new loop tilePlacement: " + tilePlacement);
+            }
+            tileBagBuilder.addTile(new TileBuilder(tile.getLabel())
+                    .setId(tile.getId().toString())
+                    .setCreatedTime(tile.getCreatedTime().toString())
+                    .setPlacement(new TilePlacementBuilder(
+                            new TileCoordinatesDto(tilePlacement.getX(),tilePlacement.getY(),tilePlacement.getZ()))
+                                    .setlastUpdatedTime(tilePlacement.getLastUpdatedTime().toString())
+                                    .setLastMovedById(tilePlacement.getLastMovedById())));
+        }
+        tileBoardBuilder.setTileBag(tileBagBuilder);
+        // add all participants
+        for (final User participant : participants) {
+            tileBoardBuilder.addParticipant(new UserBuilder(participant.getUserName())
+                    .setId(participant.getId().toString())
+                    .setFirstName(participant.getFirstName())
+                    .setLastName(participant.getLastName()));
+        }
+        tileBoardBuilder
+                .setId(tileBoard.getId().toString())
+                .setCreatedTime(tileBoard.getCreatedTime().toString())
+                .setLastUpdatedTime(tileBoard.getLastUpdatedTime().toString());
+        return tileBoardBuilder.build();
     }
 }

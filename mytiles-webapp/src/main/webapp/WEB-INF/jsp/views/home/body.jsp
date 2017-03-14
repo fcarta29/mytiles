@@ -11,7 +11,7 @@
 		</span>
 	</div>
 	<div class="page-header">
-	${menu.menuItem}sdfsdfg
+	${menu.menuItem}
 		<div id="tileBoardDiv" class="jumbotron tileboard">
 			<span id="draggable8863c47b-a7e0-4f42-8689-3432106f15cc"
 				class="tile ui-widget-content">Funny Word</span> 

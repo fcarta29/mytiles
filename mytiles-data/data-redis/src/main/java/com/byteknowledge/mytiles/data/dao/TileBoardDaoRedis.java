@@ -28,7 +28,7 @@ public class TileBoardDaoRedis extends AbstractDaoRedis<TileBoard> implements Ti
     
     @Autowired
     @Qualifier("tileBoardRedisTemplate")
-    private RedisTemplate<String,TileBoard> redisTemplate = new RedisTemplate<String,TileBoard>();
+    private RedisTemplate<String,TileBoard> redisTemplate;
     
     @Override
     public String getObjectKey() {

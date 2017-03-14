@@ -21,7 +21,7 @@ public class UserDaoRedis extends AbstractDaoRedis<User> implements UserDao {
     
     @Autowired
     @Qualifier("userRedisTemplate")
-    private RedisTemplate<String,User> redisTemplate = new RedisTemplate<String,User>();
+    private RedisTemplate<String,User> redisTemplate;
     
     @Override
     public String getObjectKey() {

@@ -1,4 +1,4 @@
-package com.byteknowledge.mytiles;
+package com.byteknowledge.mytiles.services.movement;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -16,16 +16,16 @@ import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 @ComponentScan("com.byteknowledge.mytiles")
 @PropertySource({"classpath:/websocket.properties", "classpath:/redis.properties"})
 @EnableWebSocketMessageBroker
-public class MyTilesWebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer {
+public class MyTilesMovementConfig extends AbstractWebSocketMessageBrokerConfigurer {
 
     private @Value("${redis.host-name}") String redisHostName;
     private @Value("${redis.port}") int redisPort;
-    
+
     @Bean
     public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
         return new PropertySourcesPlaceholderConfigurer();
     }
-    
+
     @Bean
     public JedisConnectionFactory jedisConnectionFactory() {
         JedisConnectionFactory factory = new JedisConnectionFactory();
@@ -33,17 +33,17 @@ public class MyTilesWebSocketConfig extends AbstractWebSocketMessageBrokerConfig
         factory.setPort(redisPort);
         factory.setUsePool(true);
         return factory;
-    }    
-    
+    }
+
     @Override
     public void configureMessageBroker(final MessageBrokerRegistry config) {
-        config.enableSimpleBroker("/topic");
-        config.setApplicationDestinationPrefixes("/app");
+        config.enableSimpleBroker("/topic"); // outgoing pattern clients subscribe to (UI - web, app)
+        config.setApplicationDestinationPrefixes("/app"); // incoming from clients ( UI - web, app)
     }
-    
+
     @Override
     public void registerStompEndpoints(final StompEndpointRegistry registry) {
-        registry.addEndpoint("/mytiles")
+        registry.addEndpoint("/mytiles") // endpoint that stomp client connects to
             .setAllowedOrigins("*") // TODO[fcarta] for now allow all - needed since seperate apps cause CORS errors
             .withSockJS();
     }

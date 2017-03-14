@@ -11,16 +11,29 @@ services:
       - "redis:redis"
     depends_on:
       - redis
-#  service-reservation:
-#    build:
-#      context: ./mytiles-service/service-reservation
-#      dockerfile: Dockerfile
-#    ports:
-#      - "9080:9080"
-#    links:
-#      - "redis:redis"
-#    depends_on:
-#      - redis
+  service-movement:
+    build:
+      context: ./mytiles-service/service-movement
+      dockerfile: Dockerfile
+    ports:
+      - "9080:9080"
+    links:
+      - "redis:redis"
+    depends_on:
+      - redis
+      - data-rest-test
+  webapp:
+    build:
+      context: ./mytiles-webapp
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    links:
+      - "redis:redis"
+    depends_on:
+      - redis
+      - data-rest-test
+      - service-movement        
 #  service-journal:
 #    build:
 #      context: ./mytiles-service/service-journal
@@ -61,7 +74,7 @@ services:
 #      - "redis:redis"
 #    depends_on:
 #      - redis
-#      - service-reservation    
+#      - service-reservation
   redis:
     image: redis
     ports:
