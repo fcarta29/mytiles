@@ -83,7 +83,7 @@
             $( "#draggable8863c47b-a7e0-4f42-8689-3432106f15cc" ).show();
             $( "#draggabledb442fda-cf92-4787-a776-74cac38800be" ).show();
             
-            $.get("http://localhost:9080/tileplacements/tileboard/07270496-d622-4351-a4df-d4f28b31fe5c/tilebag/7194d3ea-b2be-4e1f-b606-8d5867bb5a34", function(placements) {
+            $.get("http://localhost:9090/tileplacements/tileboard/07270496-d622-4351-a4df-d4f28b31fe5c/tilebag/7194d3ea-b2be-4e1f-b606-8d5867bb5a34", function(placements) {
                 console.log('Getting current tile placements');
                 $.each(placements, function(index, placement) {
                     console.log('Tileplacement: ' + placement);

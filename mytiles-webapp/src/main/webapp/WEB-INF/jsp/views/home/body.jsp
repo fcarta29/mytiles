@@ -14,10 +14,10 @@
 	${menu.menuItem}
 		<div id="tileBoardDiv" class="jumbotron tileboard">
 			<span id="draggable8863c47b-a7e0-4f42-8689-3432106f15cc"
-				class="tile ui-widget-content">Funny Word</span> 
+				class="tile ui-widget-content">Halarious Word</span> 
 			<span
 				id="draggabledb442fda-cf92-4787-a776-74cac38800be"
-				class="tile ui-widget-content">Halarious Word</span>
+				class="tile ui-widget-content">Funny Word</span>
 		</div>
 
 		<div id="conversationDiv">
