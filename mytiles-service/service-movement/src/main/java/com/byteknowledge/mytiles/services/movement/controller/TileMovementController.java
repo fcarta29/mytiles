@@ -11,9 +11,11 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.byteknowledge.mytiles.dto.TileMovement;
 
+@CrossOrigin
 @Controller
 public class TileMovementController {
 

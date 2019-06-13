@@ -1,0 +1,43 @@
+##################################################################################################
+# Neworking
+##################################################################################################
+apiVersion: contour.heptio.com/v1beta1
+kind: IngressRoute
+metadata:
+  name: mytiles-app
+spec:
+  virtualhost:
+    fqdn: "mytiles.me"
+  routes:
+    - match: /
+      services:
+        - name: mytiles-webapp
+          port: 8080
+---   
+apiVersion: contour.heptio.com/v1beta1
+kind: IngressRoute
+metadata:
+  name: mytiles-ws
+spec:
+  virtualhost:
+    fqdn: "ws.mytiles.me"
+  routes:
+    - match: /mytiles
+      enableWebsockets: true
+      services:
+        - name: mytiles-service-movement
+          port: 9080 
+---   
+apiVersion: contour.heptio.com/v1beta1
+kind: IngressRoute
+metadata:
+  name: mytiles-api
+spec:
+  virtualhost:
+    fqdn: "api.mytiles.me"
+  routes:
+    - match: /
+      services:
+        - name: mytiles-service-placement
+          port: 9090           
+---

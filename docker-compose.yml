@@ -1,6 +1,17 @@
 ---
 version: '2'
 services:
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+    command:
+      - redis-server
+      - /usr/local/etc/redis/redis.conf
+    volumes:
+      - ./mytiles-service/redis.conf:/usr/local/etc/redis/redis.conf
+      # NOTE: The following will need to change most likely to a data container
+      - /data/mytiles:/mnt/mytiles:rw
   data-rest-test:
     build:
       context: ./mytiles-data/data-rest-test
@@ -75,14 +86,4 @@ services:
 #    depends_on:
 #      - redis
 #      - service-reservation
-  redis:
-    image: redis
-    ports:
-      - "6379:6379"
-    command:
-      - redis-server
-      - /usr/local/etc/redis/redis.conf
-    volumes:
-      - ./mytiles-service/redis.conf:/usr/local/etc/redis/redis.conf
-      # NOTE: The following will need to change most likely to a data container
-      - /data/mytiles:/mnt/mytiles:rw
+

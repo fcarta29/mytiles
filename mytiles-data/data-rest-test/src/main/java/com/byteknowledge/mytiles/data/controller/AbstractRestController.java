@@ -15,7 +15,7 @@ import com.byteknowledge.mytiles.dao.Dao;
 import com.byteknowledge.mytiles.model.AbstractUUIDEntity;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin
 public abstract class AbstractRestController<E extends AbstractUUIDEntity> {
 
     protected abstract Dao<E> getDao();

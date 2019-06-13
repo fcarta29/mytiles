@@ -17,7 +17,7 @@ import com.byteknowledge.mytiles.dao.TilePlacementDao;
 import com.byteknowledge.mytiles.model.TilePlacement;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin
 @RequestMapping("/tileplacements")
 public class TilePlacementRestController {
 	

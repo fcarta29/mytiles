@@ -29,3 +29,6 @@ classes/
 Servers/
 bin/
 gen/
+
+fcarta.conf
+.o11n

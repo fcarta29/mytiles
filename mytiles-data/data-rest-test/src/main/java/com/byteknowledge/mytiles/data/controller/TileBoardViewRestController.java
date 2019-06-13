@@ -33,7 +33,7 @@ import com.byteknowledge.mytiles.model.TilePlacement;
 import com.byteknowledge.mytiles.model.User;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin
 @RequestMapping("/tileboards/view")
 public class TileBoardViewRestController {
 
