@@ -1,0 +1,152 @@
+##################################################################################################
+# Redis Data
+##################################################################################################
+apiVersion: v1
+kind: Service
+metadata:
+  name: mytiles-redis
+spec:
+  selector:
+    app: mytiles-redis
+  ports:
+  - protocol: TCP
+    port: 6379
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: mytiles-redis
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: mytiles-redis
+        version: v1
+    spec:
+      # adding this to run as redis user 999:999
+      # adding in order to write to the the /mnt/mytiles dir so owner of dir is redis:redis
+      securityContext:
+        runAsUser: 999
+        runAsGroup: 999
+        fsGroup: 999
+      containers:
+      - name: mytiles-redis
+        image: fcarta29/mytiles-redis
+        imagePullPolicy: Always
+        args:
+        - redis-server
+        - /usr/local/etc/redis/redis.conf
+        ports:
+        - containerPort: 6379
+        volumeMounts:
+        - mountPath: /mnt/mytiles
+          name: mytiles-persistent-claim0
+      restartPolicy: Always
+      volumes:
+      - name: mytiles-persistent-claim0
+        persistentVolumeClaim:
+          claimName: mytiles-persistent-claim0
+---
+##################################################################################################
+# Service Movement
+##################################################################################################
+apiVersion: v1
+kind: Service
+metadata:
+  name: mytiles-service-movement
+spec:
+  selector:
+    app: mytiles-service-movement
+  ports:
+  - name: "9080"
+    port: 9080
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: mytiles-service-movement
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: mytiles-service-movement
+        version: v1
+    spec:
+      containers:
+      - name: mytiles-service-movement
+        image: fcarta29/mytiles-service-movement
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 9080
+      restartPolicy: Always
+---
+##################################################################################################
+# Tile Placement (Data Rest Test)
+##################################################################################################
+apiVersion: v1
+kind: Service
+metadata:
+  name: mytiles-service-placement
+spec:
+  selector:
+    app: mytiles-service-placement
+  ports:
+  - name: "9090"
+    port: 9090
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: mytiles-service-placement
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: mytiles-service-placement
+        version: v1
+    spec:
+      containers:
+      - name: mytiles-service-placement
+        image: fcarta29/mytiles-service-placement
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 9090
+      restartPolicy: Always
+---
+##################################################################################################
+# Webapp Movement
+##################################################################################################
+apiVersion: v1
+kind: Service
+metadata:
+  name: mytiles-webapp
+spec:
+  selector:
+    app: mytiles-webapp
+  ports:
+  - name: "8080"
+    port: 8080
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: mytiles-webapp
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: mytiles-webapp
+        version: v1
+    spec:
+      containers:
+      - name: mytiles-webapp
+        image: fcarta29/mytiles-webapp
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+      restartPolicy: Always
+---

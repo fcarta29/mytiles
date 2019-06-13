@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.UUID;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 public class TilePlacement implements Serializable {
 
@@ -132,9 +133,7 @@ public class TilePlacement implements Serializable {
 
 	@Override
 	public String toString() {
-		return "TilePlacement [tileBoardId=" + tileBoardId + ", tileBagId=" + tileBagId + ", tileId=" + tileId
-				+ ", lastMovedById=" + lastMovedById + ", lastUpdatedTime=" + lastUpdatedTime + ", x=" + x + ", y=" + y
-				+ ", z=" + z + "]";
+		return ToStringBuilder.reflectionToString(this);
 	}
 	
 }

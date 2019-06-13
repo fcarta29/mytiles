@@ -2,6 +2,72 @@
 
 ##Project Setup
 
+
+
+### Build Deploy Container (from /deploy dir)
+``` 
+$ docker build -t mytiles-deploy --rm -f deploy.dockerfile .
+```
+
+### Run Deploy Container
+```
+
+```
+
+## Deploying MyTiles Appliction to AWS
+###
+EKS setup here - https://docs.aws.amazon.com/eks/latest/userguide/getting-started-console.html
+Needed to add Internet Gateway to Routing Table for Subnets 0.0.0.0/0 - igw-XXXXXXXXX
+Install countour on k8 
+```
+kubectl apply -f https://j.hept.io/contour-deployment-rbac
+```
+### Run and Connect to Deploy Container
+```
+$ docker run --name mytiles-deploy -td fcarta29/mytiles-deploy:latest
+$ docker exec -it mytiles-deploy bash
+```
+### Configure AWS CLI and EKS
+```
+$ aws configure
+$ aws eks --region us-west-2 update-kubeconfig --name MyTiles-Cluster
+```
+
+Deploy yamls - persistence, mytiles app, and networking
+### Get AWS External IP
+```
+ kubectl get -n heptio-contour service contour -o wide
+
+Get External IP
+a44c888c68d5c11e99a980653b4b550e-837031113.us-west-2.elb.amazonaws.com
+```
+
+
+### Push Deploy Container
+```
+docker login
+docker tag mytiles-deploy:latest fcarta29/mytiles-deploy:latest
+docker push fcarta29/mytiles-deploy:latest
+```
+
+
+### Build Base Container (from /build dir)
+```
+docker build -t mytiles-build --rm -f build.dockerfile .
+```
+### Push Build Container
+```
+docker login
+docker tag mytiles-build:latest fcarta29/mytiles-build:latest
+docker push fcarta29/mytiles-build:latest
+```
+
+
+
+
+
+
+##OLD
 1. Install redis
   * Download http://redis.io/download
   * For Mac OS X use 

@@ -2,6 +2,8 @@ package com.byteknowledge.mytiles.model;
 
 import java.util.UUID;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 public class Tile extends AbstractUUIDEntity {
 
     private static final long serialVersionUID = 6427325005290619328L;
@@ -61,8 +63,6 @@ public class Tile extends AbstractUUIDEntity {
 
     @Override
     public String toString() {
-        return "Tile [id=" + getId() + ", creatorId=" + creatorId + ", createdTime=" + createdTime 
-                + ", label=" + label + "]";
+    	return ToStringBuilder.reflectionToString(this);
     }
-
 }

@@ -1,110 +1,102 @@
 <?xml version="1.0"?>
-<project
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
-	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<modelVersion>4.0.0</modelVersion>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.byteknowledge.labs</groupId>
+        <artifactId>mytiles</artifactId>
+        <version>1.0</version>
+    </parent>
 
-	<parent>
-		<groupId>com.byteknowledge</groupId>
-		<artifactId>mytiles</artifactId>
-		<version>0.1.0-SNAPSHOT</version>
-	</parent>
-
+    <groupId>com.byteknowledge.labs.mytiles.web</groupId>
+    <artifactId>mytiles-webapp</artifactId>
+    <version>${project.parent.version}</version>
     <packaging>war</packaging>
-	<artifactId>mytiles-webapp</artifactId>
-	<name>MyTiles - Webapp</name>
+    <name>MyTiles - Web: Webapp</name>
 
-	<properties>
+    <properties></properties>
 
-	</properties>
-
-	<profiles>
-		<!-- ================= Developer Profiles ================= -->
-		<profile>
-			<id>fcarta</id>
-			<activation>
-				<property>
-					<name>env.USER</name>
-					<value>fcarta</value>
-				</property>
-			</activation>
-			<properties>
-
-			</properties>
-		</profile>
-
-		<profile>
-			<id>awerhane</id>
-			<activation>
-				<property>
-					<name>env.USER</name>
-					<value>awerhane</value>
-				</property>
-			</activation>
-			<properties>
-
-			</properties>
-		</profile>
-	</profiles>
-	
     <dependencies>
         <dependency>
-            <groupId>${project.parent.groupId}</groupId>
+            <groupId>com.byteknowledge.labs.mytiles</groupId>
             <artifactId>mytiles-core</artifactId>
             <version>${project.parent.version}</version>
-        </dependency>   
-        
-<dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-web</artifactId>
-    <exclusions>
-        <exclusion>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-websocket</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-messaging</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
-        </exclusion>
-    </exclusions>
-</dependency>
-<dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-jetty</artifactId>
-</dependency>       
-            
-        <!-- dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <optional>true</optional>
-        </dependency-->
-                    
-        <!-- Apache Tiles >
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-jasper</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tiles</groupId>
+            <artifactId>tiles-jsp</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-redis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <type>jar</type>
+            <scope>compile</scope>
+        </dependency>
+
+        <!-- Apache Tiles -->
         <dependency>
             <groupId>org.apache.tiles</groupId>
             <artifactId>tiles-extras</artifactId>
-        </dependency-->            
-            
-    </dependencies>	
+        </dependency>
 
-	<build>
-		<finalName>mytiles</finalName>
+    </dependencies>
 
-		<plugins>
-			<plugin>
-				<groupId>org.eclipse.jetty</groupId>
-				<artifactId>jetty-maven-plugin</artifactId>
-				<version>9.2.15.v20160210</version>
-				<configuration>
-					<scanIntervalSeconds>10</scanIntervalSeconds>
-					<!-- webApp>
-						<contextPath>/test</contextPath>
-					</webApp>
-					<loginServices>
-						<loginService implementation="org.eclipse.jetty.security.HashLoginService">
-							<name>Test Realm</name>
-							<config>${project.basedir}/src/etc/realm.properties</config>
-						</loginService>
-					</loginServices-->
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+    <build>
+      <finalName>mytiles</finalName>
+      <resources>
+        <resource>
+          <directory>${basedir}/config</directory>
+          <filtering>true</filtering>
+          </resource>
+      </resources>
+      <plugins>
+        <plugin>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-maven-plugin</artifactId>
+          <executions>
+            <execution>
+              <goals>
+                <goal>repackage</goal>
+              </goals>
+              <configuration>
+                <mainClass>${start-class}</mainClass>
+              </configuration>
+            </execution>
+          </executions>
+          <configuration>
+            <mainClass>${start-class}</mainClass>
+          </configuration>
+        </plugin>
+      </plugins>
+    </build>
 
 </project>
